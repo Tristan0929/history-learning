@@ -22,12 +22,10 @@
   .btn-primary:hover{background:#2a4d7a}
   .btn-primary:disabled{background:#9aa7b5;cursor:not-allowed}
   .btn-sm{padding:4px 10px;font-size:12px}
-  /* tabs */
   .tabs{display:flex;gap:6px;padding:10px 16px 0;background:var(--card);border-bottom:1px solid var(--line);flex-shrink:0;overflow-x:auto}
   .tab{padding:8px 14px;border-radius:9px 9px 0 0;font-size:13.5px;cursor:pointer;color:var(--grey);white-space:nowrap;border:1px solid transparent;border-bottom:none;background:#eef1f4}
   .tab.active{background:var(--card);color:var(--dark);font-weight:700;border-color:var(--line);box-shadow:0 -2px 0 var(--dark) inset}
   .tabdesc{padding:8px 18px;background:var(--card);font-size:12.5px;color:var(--grey);border-bottom:1px solid var(--line);flex-shrink:0}
-  /* chat */
   .chat{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:14px}
   .wrap{max-width:860px;margin:0 auto;width:100%}
   .msg{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
@@ -38,7 +36,6 @@
   .assistant .bubble{background:var(--card);border:1px solid var(--line);width:100%}
   .assistant .tools{display:flex;gap:8px;margin-top:2px}
   .hintcard{background:#eef5ee;border-left:4px solid var(--green);padding:12px 15px;border-radius:8px;font-size:13.5px;color:#264a30;line-height:1.7}
-  /* rendered content */
   .rc p{margin:.35em 0}
   .rc h3{font-size:15.5px;color:var(--dark);margin:.7em 0 .3em;font-weight:700}
   .rc h4{font-size:15px;color:var(--dark);margin:.8em 0 .3em;font-weight:700;border-bottom:1px solid #eee;padding-bottom:4px}
@@ -51,11 +48,7 @@
   .rc tr:nth-child(even) td{background:#eef2f7}
   .rc .sec{margin:12px 0 5px;padding:6px 12px;background:#eef1f4;border-left:4px solid var(--dark);border-radius:6px;font-weight:700;color:var(--dark);font-size:14px}
   .rc .cap2{color:var(--grey);font-size:13px;margin:4px 0}
-  /* 新增：块引用和分割线 */
-  .rc blockquote {
-    margin:12px 0;padding:10px 16px;background:#f0f4fa;border-left:5px solid var(--dark);
-    color:#1f2a3a;border-radius:0 8px 8px 0;font-style:normal;line-height:1.8;
-  }
+  .rc blockquote{margin:12px 0;padding:10px 16px;background:#f0f4fa;border-left:5px solid var(--dark);color:#1f2a3a;border-radius:0 8px 8px 0;font-style:normal;line-height:1.8}
   .rc blockquote p{margin:4px 0}
   .rc hr{border:0;border-top:2px dashed var(--line);margin:20px 0}
   .cal{padding:7px 11px;border-radius:8px;margin:.4em 0;font-size:14px;line-height:1.7}
@@ -70,12 +63,10 @@
   .cal.think .lab{background:#6b3fa0}
   .cal.link{background:#eaf4ec;border-left:4px solid var(--green);color:#1c4a2c}
   .cal.link .lab{background:var(--green)}
-  /* input */
   .inputbar{flex-shrink:0;border-top:1px solid var(--line);background:var(--card);padding:10px 16px}
   .inputrow{max-width:860px;margin:0 auto;display:flex;gap:8px;align-items:flex-end}
   textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:14px;line-height:1.6;max-height:180px;min-height:46px}
   textarea:focus{outline:none;border-color:var(--dark)}
-  /* modal */
   .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:50}
   .modal.show{display:flex}
   .modal .box{background:#fff;border-radius:14px;padding:22px;width:440px;max-width:92vw;max-height:90vh;overflow:auto}
@@ -113,7 +104,6 @@
   </div>
 </div>
 
-<!-- settings modal -->
 <div class="modal" id="modal">
   <div class="box">
     <h2>设置 API</h2>
@@ -147,7 +137,6 @@
 
 <script>
 "use strict";
-/* ---------- 服务商预设 ---------- */
 var PROVIDERS = {
   deepseek:{name:"DeepSeek（推荐）", base:"https://api.deepseek.com", model:"deepseek-v4-flash"},
   openai:{name:"OpenAI", base:"https://api.openai.com", model:"gpt-4o-mini"},
@@ -156,7 +145,6 @@ var PROVIDERS = {
   custom:{name:"自定义", base:"", model:""}
 };
 
-/* ---------- 学段 / 深度 ---------- */
 var LEVELS = {
   auto:{ label:"通用·自适应", dir:"【学段·通用自适应】请根据我提供内容本身的难度与范围,自动匹配合适的讲解深度与术语层次:内容浅显就按初中(重基础、通俗),内容涉及概念与论证就按高中(重核心素养与史料实证),内容具学术性就按大学(可引入史学理论与批判)。" },
   junior:{ label:"初中", dir:"【学段·初中】语言通俗易懂,紧扣课程标准与教材,重基础史实与规范术语;核心素养(唯物史观/时空观念/史料实证/历史解释/家国情怀)以入门方式点到即可。" },
@@ -164,15 +152,13 @@ var LEVELS = {
   advanced:{ label:"大学 / 进阶", dir:"【学段·大学/进阶】可引入史学理论与方法(史料批判、史学史、不同史观流派、历史解释的多元性),鼓励学术性与思辨性分析,比较不同学者/学派的观点;论文按学术短论标准(论点—论据—论证—学术规范),必要时提示可延伸阅读的方向。" }
 };
 
-/* ---------- 教材栏目/板块名(用于自动识别排版) ---------- */
 var SECTIONS = {"学习聚焦":1,"历史纵横":1,"史料阅读":1,"学思之窗":1,"思考点":1,"探究与拓展":1,"问题探究":1,"学习拓展":1,"相关史事":1,"材料研读":1,"人物扫描":1,"想一想":1,"读地图":1,"知识拓展":1,"课后活动":1,"导入":1,"情境导入":1,"本课小结":1,"融会贯通":1,"方法点拨":1,"史事概览":1};
 
-/* ---------- 六个工具的系统提示 (新增第6个: AI对话) ---------- */
 var MODES = [
   { id:"note", name:"① 历史笔记", desc:"粘贴任意历史文本（初中/高中/大学教材章节，或任何一段史料、历史论述），生成带批注的自学笔记。最可靠。",
     placeholder:"把要做笔记的历史文本粘进来…（教材章节 / 史料 / 任意历史文字均可）",
-    hint:"把<b>任意历史文本</b>整段粘进来（初高中/大学教材、史料、论述都行），我会一字不差照录，并在下方做【重点】【必背】【笔记】【思考】【贯通】批注，最后给小结表。深度会随右上角“学段”自动调整。",
-    sys:"你是一名历史学习助教。请把用户发来的【历史文本】整理成用于自学的批注式笔记。文本可以是初中/高中/大学教材的章节，也可以是任意一段与历史相关的文字、史料或论述。三条铁律：1.只依据用户提供的文本和公认史实作答，文本没有的不要编造，不确定的标注“(需核对)”；2.使用规范的历史学术语，不用口语；3.你是“批注”不是“改写”，原文必须一字不差保留。输出：一、按原文顺序照录正文及所有小标题/栏目（若含教材栏目如相关史事/史料阅读/学思之窗/历史纵横/探究与拓展/人物扫描等，一并照录），原文不变；二、在每段原文下方另起一行用这些标记做批注（每个标记单独成行）：【重点】标关键词句；【必背】列须记忆的时间/人物/概念/文件/制度；【笔记】解释含义、逻辑、意义；【思考】提1个引导主动思考的问题并给思路，注明相关核心素养（唯物史观/时空观念/史料实证/历史解释/家国情怀）或所涉史观；【贯通】主动指出它与其他知识点、其他历史时期、中外历史或其他学科的联系。排版要求（务必遵守）：(a)主动识别原文中的每个板块/栏目（如 学习聚焦、历史纵横、史料阅读、学思之窗、思考点、探究与拓展、问题探究、学习拓展、相关史事、材料研读、人物扫描、想一想、读地图、知识拓展 等），把板块名单独放在一行、独占一段，放在该板块内容前面；(b)无论内容属于哪个学段，都必须使用【重点】【必背】【笔记】【思考】【贯通】这五种标记来做批注，每个标记单独成一行，不要用加粗、也不要用 ** 星号或其它格式来代替这些标记；(c)正文与批注分行，条理清晰。三、最后给一张 markdown 小结表，再用一段说明“这段内容能和哪些知识打通”。若用户没有发文本，只回复：“请把要做笔记的历史文本发给我（教材章节或任意历史文字均可）”。" },
+    hint:"把<b>任意历史文本</b>整段粘进来。我会按教材精读标准排版：用 # 标题、> 引用、--- 分割线、表格，并在下方附五色批注卡片。",
+    sys:"你是一名专业的历史教材精读助教。请把用户发来的【历史文本】整理成结构清晰、排版精美的自学笔记，排版风格要像正式出版的教材精读那样层次分明。\n\n【排版铁律（必须严格遵守）】\n1. 使用 Markdown 标题层级组织原文结构：# 表示课标题，## 表示大节（如“一、德川幕府与锁国时代”），### 表示小节。\n2. 原文中的教材固定栏目（如“相关史事”、“史料阅读”、“学思之窗”、“历史纵横”、“知识拓展”、“人物扫描”、“想一想”、“读地图”、“课后活动”等），必须在该段文字前加 >（引用块），使其在网页上呈现为带蓝边的引用框。\n3. 涉及对比、列表、措施归纳时，必须使用 Markdown 表格（如 | 领域 | 措施 |）来呈现，使信息一目了然。\n4. 在笔记的各个主要部分之间（如“背景”→“过程”→“影响”之间），使用 ---（分割线）隔开，保持版面清爽。\n5. 原文中出现的图注（如“▲ 明治维新前的日本”）保留，并单独成行。\n\n【批注铁律（必须严格遵守）】\n在上述排版好的原文或逻辑段落的下方，依然必须按顺序输出【重点】【必背】【笔记】【思考】【贯通】五个批注标记，每个标记单独成行，以激活前端的五色卡片功能。\n- 【重点】标关键词句\n- 【必背】列须记忆的时间/人物/概念/文件/制度\n- 【笔记】解释含义、逻辑、意义\n- 【思考】提1个引导主动思考的问题并给思路，注明相关核心素养（唯物史观/时空观念/史料实证/历史解释/家国情怀）或所涉史观\n- 【贯通】主动指出它与其他知识点、其他历史时期、中外历史或其他学科的联系\n\n【内容铁律（必须严格遵守）】\n6. 只依据用户提供的文本和公认史实作答，文本没有的不要编造，不确定的标注“(需核对)”。\n7. 使用规范的历史学术语，不用口语。\n8. 原文中的人物、时间、地名、文件名等信息须准确照录。\n\n若用户没有发文本，只回复：“请把要做笔记的历史文本发给我（教材章节或任意历史文字均可）”。" },
   { id:"material", name:"② 材料题陪练", desc:"发一道材料题（材料+设问），带你一步步分析，不直接给答案。",
     placeholder:"把材料题（材料+设问）粘进来…",
     hint:"发一道<b>材料分析题</b>（材料+设问）。我不会直接给答案，而是带你挖材料、接课本、判断设问类型，你先写、我再点评。",
@@ -195,14 +181,12 @@ var MODES = [
     sys:"你是一名专业且耐心的历史助教。用户会发来具体的历史疑问（词汇解释、句子理解、事件背景、概念辨析等）。请用清晰、准确、通俗易懂的语言解答。回答务必严谨：1.严格依据公认史实，不确定处务必标注'（需核对）'；2.采用分点、小段落或简单表格的形式让逻辑清晰；3.如果是解释词汇/概念，请说清时间、地点、核心内容和历史意义；4.不要使用口语化网络用语，保持学术规范但易懂。" }
 ];
 
-/* ---------- 状态 ---------- */
 var cfg = loadCfg();
 var curMode = "note";
 var curLevel = cfg.level || "auto";
 var threads = {};
 MODES.forEach(function(m){ threads[m.id]=[]; });
 
-/* ---------- 工具函数 ---------- */
 function loadCfg(){
   try{ var c=JSON.parse(localStorage.getItem("hxcfg")||"{}"); }catch(e){ c={}; }
   if(!c.provider){ c.provider="deepseek"; c.base=PROVIDERS.deepseek.base; c.model=PROVIDERS.deepseek.model; c.key=""; }
@@ -212,7 +196,6 @@ function loadCfg(){
 function saveCfg(){ localStorage.setItem("hxcfg", JSON.stringify(cfg)); }
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
-// 修复后的行内格式（干净处理加粗和代码）
 function inlineFmt(s){
   var escaped = esc(s);
   escaped = escaped.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
@@ -220,7 +203,6 @@ function inlineFmt(s){
   return escaped;
 }
 
-/* 全面升级的渲染器：支持 # 标题、> 引用、--- 分割线、中文序数标题 */
 function renderContent(text){
   var lines = text.split(/\r?\n/);
   var html = "", i = 0;
@@ -231,18 +213,15 @@ function renderContent(text){
     var line = raw.replace(/\s+$/,"");
     var t = line.trim();
     
-    // 跳过空行
     if(t === ""){
       i++;
       continue;
     }
 
-    // 1. 处理 Markdown 分割线 --- 或 ***
     if(/^---+$/.test(t) || /^\*\*\*+$/.test(t)){
       html += "<hr>"; i++; continue;
     }
 
-    // 2. 处理块引用 > 
     if(/^>\s+/.test(t)){
       var blockLines = [];
       while(i < lines.length && /^>\s+/.test(lines[i].trim())){
@@ -253,7 +232,6 @@ function renderContent(text){
       continue;
     }
 
-    // 3. 处理 Markdown 标题 (# ## ###)
     var hm = t.match(/^(#{1,6})\s+(.*)$/);
     if(hm){
       var hlevel = hm[1].length;
@@ -262,7 +240,6 @@ function renderContent(text){
       i++; continue;
     }
 
-    // 4. 处理中文序数标题（一、 / （一） / 第X章 / 第X节）
     if(/^[一二三四五六七八九十]+[、．]\s+/.test(t) || 
        /^（[一二三四五六七八九十]+）\s+/.test(t) ||
        /^第[一二三四五六七八九十]+[章节]\s+/.test(t)){
@@ -270,7 +247,6 @@ function renderContent(text){
       i++; continue;
     }
 
-    // 5. 处理表格
     if(/^\|.*\|/.test(t)){
       var tbl = [];
       while(i < lines.length && /^\s*\|.*\|/.test(lines[i])){
@@ -280,7 +256,6 @@ function renderContent(text){
       html += renderTable(tbl); continue;
     }
 
-    // 6. 处理五色批注
     var cm = t.match(/^【(重点|必背|笔记|思考|贯通)】\s*(.*)$/);
     if(cm){
       var cls = calMap[cm[1]];
@@ -288,20 +263,17 @@ function renderContent(text){
       i++; continue;
     }
 
-    // 7. 处理教材栏目（学习聚焦、史料阅读等）
     var core = t.replace(/^[#>*\s]+/,"").replace(/[*#\s]+$/,"").replace(/^[【\[]/,"").replace(/[】\]]$/,"").replace(/[:：]\s*$/,"").trim();
     if(SECTIONS[core]){
       html += '<div class="sec">'+esc(core)+'</div>';
       i++; continue;
     }
 
-    // 8. 处理图注
     if(/^[▲►]/.test(t)){
       html += '<div class="cap2">'+inlineFmt(esc(t.replace(/^[▲►]\s*/,"")))+'</div>';
       i++; continue;
     }
 
-    // 9. 无序列表
     if(/^(\-|\*|•)\s+/.test(t)){
       html += "<ul>";
       while(i < lines.length && /^\s*(\-|\*|•)\s+/.test(lines[i])){
@@ -311,7 +283,6 @@ function renderContent(text){
       html += "</ul>"; continue;
     }
 
-    // 10. 有序列表
     if(/^\d+[\.、)]\s+/.test(t)){
       html += "<ol>";
       while(i < lines.length && /^\s*\d+[\.、)]\s+/.test(lines[i])){
@@ -321,7 +292,6 @@ function renderContent(text){
       html += "</ol>"; continue;
     }
 
-    // 11. 普通段落
     html += "<p>" + inlineFmt(esc(t)) + "</p>";
     i++;
   }
@@ -343,7 +313,6 @@ function renderTable(rows){
   return out+"</table>";
 }
 
-/* ---------- 渲染界面 ---------- */
 function renderTabs(){
   var tabs=document.getElementById("tabs"); tabs.innerHTML="";
   MODES.forEach(function(m){
@@ -383,7 +352,6 @@ function bubble(msg,idx){
   return d;
 }
 
-/* ---------- 发送 / 流式 ---------- */
 var sending=false;
 function send(){
   if(sending) return;
@@ -448,7 +416,6 @@ function streamChat(messages, onDelta, onDone){
   }).catch(function(e){ onDone(e.message||String(e)); });
 }
 
-/* ---------- 导出 PDF（升级样式以适配新的块引用和分割线） ---------- */
 function exportPDF(content){
   var m=MODES.find(function(x){return x.id===curMode;});
   var now=new Date(); var ds=now.getFullYear()+"-"+p2(now.getMonth()+1)+"-"+p2(now.getDate());
@@ -492,7 +459,6 @@ function exportPDF(content){
 }
 function p2(n){ return n<10?"0"+n:""+n; }
 
-/* ---------- 设置弹窗 ---------- */
 function openModal(){
   var sel=document.getElementById("provider"); sel.innerHTML="";
   Object.keys(PROVIDERS).forEach(function(k){
@@ -519,13 +485,11 @@ document.getElementById("cancelSet").onclick=function(){ document.getElementById
 document.getElementById("setBtn").onclick=openModal;
 document.getElementById("clearBtn").onclick=function(){ if(confirm("清空当前模式的对话？")){ threads[curMode]=[]; renderChat(); } };
 
-/* ---------- 输入框 ---------- */
 var input=document.getElementById("input");
 input.addEventListener("input",function(){ this.style.height="auto"; this.style.height=Math.min(this.scrollHeight,180)+"px"; });
 input.addEventListener("keydown",function(e){ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); send(); } });
 document.getElementById("sendBtn").onclick=send;
 
-/* ---------- 学段选择器 ---------- */
 (function(){
   var sel=document.getElementById("levelSel");
   Object.keys(LEVELS).forEach(function(k){
@@ -536,7 +500,6 @@ document.getElementById("sendBtn").onclick=send;
   sel.addEventListener("change",function(){ curLevel=sel.value; cfg.level=curLevel; saveCfg(); });
 })();
 
-/* ---------- 启动 ---------- */
 renderTabs(); renderChat();
 if(!cfg.key){ setTimeout(openModal,400); }
 </script>
