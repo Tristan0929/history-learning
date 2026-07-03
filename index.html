@@ -7,83 +7,82 @@
 <style>
   :root{
     --dark:#1f3a5f; --accent:#b0302e; --green:#1e6b3a; --blue:#154c9e;
-    --grey:#5a6472; --bg:#f4f6f9; --card:#ffffff; --line:#dfe4ea; --hl:#fff3b0;
+    --grey:#5a6472; --bg:#f4f6f9; --card:#ffffff; --line:#dfe4ea;
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;background:var(--bg);color:#222;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-  header{background:var(--dark);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+  header{background:var(--dark);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
   header h1{font-size:17px;margin:0;font-weight:700;letter-spacing:.5px}
   header .sub{font-size:12px;opacity:.8}
   header .spacer{flex:1}
   .btn{border:none;border-radius:8px;padding:7px 13px;font-size:13px;cursor:pointer;font-family:inherit}
-  .btn-ghost{background:rgba(255,255,255,.15);color:#fff}
-  .btn-ghost:hover{background:rgba(255,255,255,.28)}
+  .btn-ghost{background:rgba(255,255,255,.16);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.3)}
   .btn-primary{background:var(--dark);color:#fff}
   .btn-primary:hover{background:#2a4d7a}
   .btn-primary:disabled{background:#9aa7b5;cursor:not-allowed}
   .btn-sm{padding:4px 10px;font-size:12px}
-  .tabs{display:flex;gap:6px;padding:10px 16px 0;background:var(--card);border-bottom:1px solid var(--line);flex-shrink:0;overflow-x:auto}
+  .btn-secondary{background:#eef1f4;color:#333;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-family:inherit;font-size:13px}
+  select#levelSel{border:none;border-radius:8px;padding:6px 9px;font-size:13px;font-family:inherit;background:rgba(255,255,255,.18);color:#fff;cursor:pointer}
+  .tabs{display:flex;gap:6px;padding:9px 16px 0;background:var(--card);border-bottom:1px solid var(--line);flex-shrink:0;overflow-x:auto}
   .tab{padding:8px 14px;border-radius:9px 9px 0 0;font-size:13.5px;cursor:pointer;color:var(--grey);white-space:nowrap;border:1px solid transparent;border-bottom:none;background:#eef1f4}
   .tab.active{background:var(--card);color:var(--dark);font-weight:700;border-color:var(--line);box-shadow:0 -2px 0 var(--dark) inset}
-  .tabdesc{padding:8px 18px;background:var(--card);font-size:12.5px;color:var(--grey);border-bottom:1px solid var(--line);flex-shrink:0}
-  .chat{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:14px}
-  .wrap{max-width:860px;margin:0 auto;width:100%}
-  .msg{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
+  .tabdesc{padding:7px 18px;background:var(--card);font-size:12.5px;color:var(--grey);border-bottom:1px solid var(--line);flex-shrink:0}
+  .app{flex:1;display:flex;overflow:hidden}
+  .maincol{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+  .chat{flex:1;overflow-y:auto;padding:18px 16px}
+  .wrap{max-width:840px;margin:0 auto;width:100%}
+  .msg{display:flex;flex-direction:column;gap:4px;margin-bottom:16px}
   .msg .who{font-size:11.5px;color:var(--grey);font-weight:700}
   .bubble{padding:12px 15px;border-radius:12px;line-height:1.75;font-size:14.5px}
-  .user .bubble{background:#e7eefc;align-self:flex-end;max-width:88%;white-space:pre-wrap}
   .user{align-items:flex-end}
+  .user .bubble{background:#e7eefc;max-width:88%;white-space:pre-wrap}
   .assistant .bubble{background:var(--card);border:1px solid var(--line);width:100%}
-  .assistant .tools{display:flex;gap:8px;margin-top:2px}
-  .hintcard{background:#eef5ee;border-left:4px solid var(--green);padding:12px 15px;border-radius:8px;font-size:13.5px;color:#264a30;line-height:1.7}
-  .rc p{margin:.35em 0}
-  .rc h3{font-size:15.5px;color:var(--dark);margin:.7em 0 .3em;font-weight:700}
-  .rc h4{font-size:15px;color:var(--dark);margin:.8em 0 .3em;font-weight:700;border-bottom:1px solid #eee;padding-bottom:4px}
+  .assistant .tools{display:flex;gap:8px;margin-top:2px;flex-wrap:wrap}
+  .hintcard{background:#eef5ee;border-left:4px solid var(--green);padding:12px 15px;border-radius:8px;font-size:13.5px;color:#264a30;line-height:1.7;margin-bottom:14px}
+  .rc p{margin:.4em 0;color:#1c1c1c}
+  .rc h3{font-size:15.5px;color:var(--dark);margin:.8em 0 .3em;font-weight:700}
   .rc strong{color:#111}
   .rc ul,.rc ol{margin:.3em 0 .3em 1.3em;padding:0}
   .rc li{margin:.2em 0}
-  .rc table{border-collapse:collapse;width:100%;margin:.5em 0;font-size:13px}
+  .rc table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:13px}
   .rc th,.rc td{border:1px solid #c9d2dc;padding:5px 8px;text-align:left;vertical-align:top}
   .rc th{background:var(--dark);color:#fff}
-  .rc tr:nth-child(even) td{background:#eef2f7}
-  .rc .sec{margin:12px 0 5px;padding:6px 12px;background:#eef1f4;border-left:4px solid var(--dark);border-radius:6px;font-weight:700;color:var(--dark);font-size:14px}
-  .rc .cap2{color:var(--grey);font-size:13px;margin:4px 0}
-  .rc blockquote{margin:12px 0;padding:10px 16px;background:#f0f4fa;border-left:5px solid var(--dark);color:#1f2a3a;border-radius:0 8px 8px 0;font-style:normal;line-height:1.8}
-  .rc blockquote p{margin:4px 0}
-  .rc hr{border:0;border-top:2px dashed var(--line);margin:20px 0}
-  
-  /* 清爽内联小标签版 */
-  .cal {
-    margin: 4px 0;
-    padding: 2px 0;
-    background: transparent !important;
-    border-left: none !important;
-    border-radius: 0 !important;
-    font-size: 14px;
-    line-height: 1.8;
-    color: #222;
-  }
-  .cal .lab {
-    display: inline-block;
-    padding: 0 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #fff;
-    margin-right: 6px;
-    line-height: 1.8;
-  }
-  .cal.key .lab { background: #b58900; }
-  .cal.must .lab { background: #b0302e; }
-  .cal.note .lab { background: #154c9e; }
-  .cal.think .lab { background: #6b3fa0; }
-  .cal.link .lab { background: #1e6b3a; }
-
+  .rc tr:nth-child(even) td{background:#f2f5f8}
+  .rc .sec{display:inline-block;background:#e7ecf2;color:#33475e;font-size:12px;font-weight:700;padding:3px 12px;border-radius:13px;margin:.7em 0 .25em}
+  .rc .cap2{color:var(--grey);font-size:13px;margin:.3em 0;font-style:italic}
+  .notebox{border-left:3px solid #b8c2cf;background:#f6f8fa;border-radius:0 8px 8px 0;padding:8px 13px;margin:.5em 0}
+  .noteline{margin:.28em 0;color:#1c1c1c;line-height:1.7}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:5px;margin-right:7px;vertical-align:1px}
+  .tag.key{background:#f6edcf;color:#836200}
+  .tag.must{background:#f4dede;color:#a12a2a}
+  .tag.note{background:#dde7f6;color:#1a4b8f}
+  .tag.think{background:#e7dcf3;color:#573a82}
+  .tag.link{background:#d8ebde;color:#1c6337}
+  .fmtlabel{font-size:12.5px;color:var(--accent);font-weight:700;margin-bottom:5px}
+  .fmtedit{width:100%;min-height:220px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:13.5px;line-height:1.7;resize:vertical}
   .inputbar{flex-shrink:0;border-top:1px solid var(--line);background:var(--card);padding:10px 16px}
-  .inputrow{max-width:860px;margin:0 auto;display:flex;gap:8px;align-items:flex-end}
-  textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:14px;line-height:1.6;max-height:180px;min-height:46px}
-  textarea:focus{outline:none;border-color:var(--dark)}
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:50}
+  .inputrow{max-width:840px;margin:0 auto;display:flex;gap:8px;align-items:flex-end}
+  textarea#input{flex:1;resize:none;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:14px;line-height:1.6;max-height:180px;min-height:46px}
+  textarea#input:focus{outline:none;border-color:var(--dark)}
+  .sidebar{width:380px;flex-shrink:0;border-left:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;overflow:hidden}
+  body.sb-closed .sidebar{display:none}
+  .sidebar-header{background:#16304f;color:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:14px}
+  .context-bar{background:#fff8e6;border-bottom:1px solid #f0dca0;color:#7a5c00;font-size:12px;padding:7px 12px;line-height:1.5;max-height:96px;overflow:auto}
+  .context-bar.empty{color:#9a9a9a;background:#f4f6f9;border-color:var(--line)}
+  .context-bar .clr{float:right;cursor:pointer;color:#b0302e;font-weight:700;margin-left:8px}
+  .sidebar-messages{flex:1;overflow-y:auto;padding:12px}
+  .sbmsg{margin-bottom:12px;font-size:13.5px;line-height:1.7}
+  .sbmsg .who{font-size:11px;color:var(--grey);font-weight:700;margin-bottom:2px}
+  .sbmsg.user .b{background:#e7eefc;padding:8px 11px;border-radius:9px;white-space:pre-wrap}
+  .sbmsg.assistant .b{background:#f6f8fa;border:1px solid var(--line);padding:9px 11px;border-radius:9px}
+  .sidebar-input-area{border-top:1px solid var(--line);padding:9px;display:flex;gap:7px}
+  .sidebar-input-area input{flex:1;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font-size:13.5px;font-family:inherit}
+  .sidebar-input-area input:focus{outline:none;border-color:var(--dark)}
+  #openSB{position:fixed;right:16px;bottom:18px;background:#16304f;color:#fff;border:none;border-radius:26px;padding:11px 16px;font-size:14px;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.25);display:none;z-index:30}
+  body.sb-closed #openSB{display:block}
+  #selBubble{position:fixed;z-index:60;background:#16304f;color:#fff;border:none;border-radius:20px;padding:6px 13px;font-size:12.5px;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.3);display:none}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:80}
   .modal.show{display:flex}
   .modal .box{background:#fff;border-radius:14px;padding:22px;width:440px;max-width:92vw;max-height:90vh;overflow:auto}
   .modal h2{margin:0 0 6px;font-size:17px;color:var(--dark)}
@@ -94,16 +93,17 @@
   .field .hint{font-size:11.5px;color:var(--grey);margin-top:3px}
   .modal .row{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
   .warn{background:#fff8e6;border:1px solid #f0dca0;color:#7a5c00;font-size:12px;padding:9px 11px;border-radius:8px;margin-bottom:12px;line-height:1.6}
-  .typing{display:inline-block;color:var(--grey);font-size:13px}
+  .typing{color:var(--grey);font-size:13px}
   .err{color:var(--accent);font-size:13.5px}
 </style>
 </head>
-<body>
+<body class="sb-closed">
 <header>
   <h1>历史学习助手</h1>
   <span class="sub">初中 · 高中 · 大学 · 覆盖任意历史内容</span>
   <span class="spacer"></span>
-  <select id="levelSel" title="学段/深度" style="border:none;border-radius:8px;padding:6px 9px;font-size:13px;font-family:inherit;background:rgba(255,255,255,.18);color:#fff;cursor:pointer"></select>
+  <select id="levelSel" title="学段/深度"></select>
+  <button class="btn btn-ghost" id="sbToggle">💬 AI 导师</button>
   <button class="btn btn-ghost" id="clearBtn">清空本模式</button>
   <button class="btn btn-ghost" id="setBtn">⚙ 设置</button>
 </header>
@@ -111,41 +111,52 @@
 <div class="tabs" id="tabs"></div>
 <div class="tabdesc" id="tabdesc"></div>
 
-<div class="chat" id="chat"><div class="wrap" id="wrap"></div></div>
+<div class="app">
+  <div class="maincol" id="mainCol">
+    <div class="chat" id="chat"><div class="wrap" id="wrap"></div></div>
+    <div class="inputbar">
+      <div class="inputrow">
+        <textarea id="input" rows="1" placeholder="输入内容…（Enter 发送，Shift+Enter 换行）"></textarea>
+        <button class="btn btn-primary" id="sendBtn">发送</button>
+      </div>
+    </div>
+  </div>
 
-<div class="inputbar">
-  <div class="inputrow">
-    <textarea id="input" rows="1" placeholder="输入内容…（Enter 发送，Shift+Enter 换行）"></textarea>
-    <button class="btn btn-primary" id="sendBtn">发送</button>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span>💬 AI 导师</span>
+      <div style="display:flex;gap:6px;">
+        <button class="btn-secondary" style="padding:.3rem .7rem;" onclick="exportChatMD()">⬇️ MD</button>
+        <button class="btn-secondary" style="padding:.3rem .7rem;" onclick="exportChatPDF()">🖨️ PDF</button>
+        <button style="background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer;" onclick="toggleSidebar()">✕</button>
+      </div>
+    </div>
+    <div class="context-bar empty" id="contextBar">选中主区域的任意文字，会悬浮一个按钮，点它即可就此内容向导师提问。</div>
+    <div class="sidebar-messages" id="chatMessages"></div>
+    <div class="sidebar-input-area">
+      <input type="text" id="chatInput" placeholder="向 AI 导师提问…" />
+      <button class="btn btn-primary" style="padding:.5rem 1rem;" id="chatSend">发送</button>
+    </div>
   </div>
 </div>
+
+<button id="openSB" onclick="toggleSidebar()">💬 AI 导师</button>
+<button id="selBubble">💬 问 AI 导师</button>
 
 <div class="modal" id="modal">
   <div class="box">
     <h2>设置 API</h2>
     <p class="tip">密钥保存在你的浏览器；调用时经本站服务器转发给服务商，服务器不存储、不记录密钥。</p>
-    <div class="warn">提示：AI 可能记错史实且语气自信。本工具已内置“依据教材、不确定要标注”等约束，但仍是学习助手，硬史实请以教材为准。</div>
-    <div class="field">
-      <label>服务商</label>
-      <select id="provider"></select>
-      <div class="hint">默认 DeepSeek。也可选其他 OpenAI 兼容服务商或自定义。</div>
-    </div>
-    <div class="field">
-      <label>接口地址 (base_url)</label>
-      <input id="baseUrl" placeholder="https://api.deepseek.com">
-    </div>
-    <div class="field">
-      <label>模型</label>
-      <input id="model" placeholder="deepseek-v4-flash">
-      <div class="hint">DeepSeek 可选：deepseek-v4-flash（便宜快，默认）、deepseek-v4-pro（更强）。</div>
-    </div>
-    <div class="field">
-      <label>API Key</label>
-      <input id="apiKey" type="password" placeholder="sk-...">
-      <div class="hint">在服务商后台申请。DeepSeek: platform.deepseek.com/api_keys</div>
-    </div>
+    <div class="warn">AI 可能记错史实且语气自信。本工具已内置“依据材料、不确定要标注”等约束，但硬史实请以教材为准。</div>
+    <div class="field"><label>服务商</label><select id="provider"></select>
+      <div class="hint">默认 DeepSeek。也可选其他 OpenAI 兼容服务商或自定义。</div></div>
+    <div class="field"><label>接口地址 (base_url)</label><input id="baseUrl" placeholder="https://api.deepseek.com"></div>
+    <div class="field"><label>模型</label><input id="model" placeholder="deepseek-v4-flash">
+      <div class="hint">DeepSeek：deepseek-v4-flash（便宜快，默认）、deepseek-v4-pro（更强，长文本更稳）。</div></div>
+    <div class="field"><label>API Key</label><input id="apiKey" type="password" placeholder="sk-...">
+      <div class="hint">DeepSeek 在 platform.deepseek.com/api_keys 申请。</div></div>
     <div class="row">
-      <button class="btn btn-ghost" style="background:#eef1f4;color:#333" id="cancelSet">取消</button>
+      <button class="btn btn-secondary" id="cancelSet">取消</button>
       <button class="btn btn-primary" id="saveSet">保存</button>
     </div>
   </div>
@@ -160,387 +171,318 @@ var PROVIDERS = {
   zhipu:{name:"智谱 GLM", base:"https://open.bigmodel.cn/api/paas/v4", model:"glm-4-flash"},
   custom:{name:"自定义", base:"", model:""}
 };
-
 var LEVELS = {
-  auto:{ label:"通用·自适应", dir:"【学段·通用自适应】请根据我提供内容本身的难度与范围,自动匹配合适的讲解深度与术语层次:内容浅显就按初中(重基础、通俗),内容涉及概念与论证就按高中(重核心素养与史料实证),内容具学术性就按大学(可引入史学理论与批判)。" },
-  junior:{ label:"初中", dir:"【学段·初中】语言通俗易懂,紧扣课程标准与教材,重基础史实与规范术语;核心素养(唯物史观/时空观念/史料实证/历史解释/家国情怀)以入门方式点到即可。" },
-  senior:{ label:"高中", dir:"【学段·高中】对接高中历史课程标准与高考要求,概念严谨,突出五大核心素养的实际运用(尤其史料实证、历史解释、唯物史观);材料题与开放性论证题按高考评分逻辑;在合适处点明所涉史观(唯物史观/文明史观/全球史观/现代化史观/社会史观)。" },
-  advanced:{ label:"大学 / 进阶", dir:"【学段·大学/进阶】可引入史学理论与方法(史料批判、史学史、不同史观流派、历史解释的多元性),鼓励学术性与思辨性分析,比较不同学者/学派的观点;论文按学术短论标准(论点—论据—论证—学术规范),必要时提示可延伸阅读的方向。" }
+  auto:{label:"通用·自适应", dir:"【学段·通用自适应】根据内容本身难度自动匹配深度：浅显按初中，含概念论证按高中，具学术性按大学。"},
+  junior:{label:"初中", dir:"【学段·初中】语言通俗，紧扣课标与教材，重基础史实与规范术语；核心素养入门式点到。"},
+  senior:{label:"高中", dir:"【学段·高中】对接高中课标与高考，概念严谨，突出史料实证、历史解释、唯物史观；材料题按高考评分逻辑；点明所涉史观（唯物/文明/全球/现代化/社会史观）。"},
+  advanced:{label:"大学 / 进阶", dir:"【学段·大学/进阶】可引入史学理论与方法（史料批判、史学史、不同史观流派、历史解释的多元性），鼓励学术性、思辨性分析，比较不同学派观点。"}
 };
+var SECTIONS = {"学习聚焦":1,"历史纵横":1,"史料阅读":1,"学思之窗":1,"思考点":1,"探究与拓展":1,"问题探究":1,"学习拓展":1,"相关史事":1,"材料研读":1,"人物扫描":1,"想一想":1,"读地图":1,"知识拓展":1,"课后活动":1,"情境导入":1,"本课小结":1,"史事概览":1,"名词解释":1,"知识链接":1};
 
-var SECTIONS = {"学习聚焦":1,"历史纵横":1,"史料阅读":1,"学思之窗":1,"思考点":1,"探究与拓展":1,"问题探究":1,"学习拓展":1,"相关史事":1,"材料研读":1,"人物扫描":1,"想一想":1,"读地图":1,"知识拓展":1,"课后活动":1,"导入":1,"情境导入":1,"本课小结":1,"融会贯通":1,"方法点拨":1,"史事概览":1};
+var NOTE_FORMAT = "你是历史资料整理专家。用户发来的文本通常是从 PDF 或课本直接全选复制的，往往存在断行、乱序、图注和示意图文字混入正文、同一句被拆成多行等问题。请只做“排版整理”，不加任何批注、不改写史实内容：1.把被拆断的句子和段落合并、还原成通顺完整的文字；2.按正确阅读顺序重排错乱的内容；3.识别子目大标题（用“## 标题”标出）与拓展栏目（如 相关史事/学习聚焦/历史纵横/史料阅读/学思之窗/探究与拓展/人物扫描/材料研读/想一想/读地图/知识拓展/思考点/课后活动 等，把栏目名单独占一行）；4.地图、示意图里零散的标签（地名、等级词等）合并成一句图注（用“▲ ”开头），或直接省略，不要逐字成行；5.删除页码、页眉、书名、“仅供个人学习使用”等无关文字。忠实于原文的文字与史实，不增删观点。直接输出整理后的干净课文本身，不要任何额外说明或开场白。";
+var NOTE_ANNOTATE = "你是历史学习助教。下面是已整理好的课文。请在保留课文原文的基础上做批注。输出要求：一、按顺序呈现课文——子目大标题用“## 标题”，栏目名单独占一行，图注用“▲ ”开头，正文照录（黑字）；二、在每段/每个栏目正文的下方，紧跟对它的批注（逐段穿插，不要把批注全堆到最后），用下列五种标记、每个标记单独占一行：【重点】关键词句；【必背】须记忆的时间/人物/概念/文件/制度；【笔记】解释含义、逻辑、意义；【思考】提1个引导主动思考的问题并给思路，注明相关核心素养或所涉史观；【贯通】主动指出它与其他知识点、其他历史时期、中外历史或其他学科的联系。无论学段都必须用这五种标记，不要用加粗或 ** 星号代替。三、最后给一张 markdown 小结表，再用一段说明“这段内容能和哪些知识打通”。忠于史实，不编造，不确定处标注“(需核对)”。";
+var SIDEBAR_SYS = "你是一位专业的历史导师（AI 导师），面向学生答疑。要求：史实准确、使用规范历史术语；讲清概念的来龙去脉与历史意义；涉及评价时区分不同史观与史学解释、必要时指出学界不同观点；不编造，不确定处明确说明需查证；条理清晰、简明扼要。若消息中带有【选中的内容】，请紧扣它来回答用户的问题。";
 
 var MODES = [
-  { id:"note", name:"① 历史笔记", desc:"粘贴任意历史文本（初中/高中/大学教材章节，或任何一段史料、历史论述），生成带批注的自学笔记。最可靠。",
-    placeholder:"把要做笔记的历史文本粘进来…（教材章节 / 史料 / 任意历史文字均可）",
-    hint:"把<b>任意历史文本</b>整段粘进来。我会按教材精读标准排版：用 # 标题、> 引用、--- 分割线、表格，并在下方附五色批注卡片。",
-    sys:"你是一名专业的历史教材精读助教。请把用户发来的【历史文本】整理成结构清晰、排版精美的自学笔记，排版风格要像正式出版的教材精读那样层次分明。\n\n【排版铁律（必须严格遵守）】\n1. 使用 Markdown 标题层级组织原文结构：# 表示课标题，## 表示大节（如“一、德川幕府与锁国时代”），### 表示小节。\n2. 原文中的教材固定栏目（如“相关史事”、“史料阅读”、“学思之窗”、“历史纵横”、“知识拓展”、“人物扫描”、“想一想”、“读地图”、“课后活动”等），必须在该段文字前加 >（引用块），使其在网页上呈现为带蓝边的引用框。注意：栏目名和内容放在同一个引用块内，自然换行即可。\n3. 涉及对比、列表、措施归纳时，必须使用 Markdown 表格（如 | 领域 | 措施 |）来呈现。\n4. 在笔记的各个主要部分之间（如“背景”→“过程”→“影响”之间），使用 ---（分割线）隔开。\n5. 原文中出现的图注（如“▲ 明治维新前的日本”）保留，并单独成行。\n6. 绝对禁止使用任何 HTML 标签，包括 <br>、<div>、<span> 等。换行请用纯文本空行，不要用 <br>。\n\n【批注铁律（必须严格遵守）】\n在上述排版好的原文下方，按顺序输出【重点】【必背】【笔记】【思考】【贯通】五个批注。\n- 必须使用【重点】格式（带中文方括号），禁止使用 # 重点 或 **重点** 等其他格式。\n- 每个批注标记单独成行。\n- 【重点】标关键词句\n- 【必背】列须记忆的时间/人物/概念/文件/制度\n- 【笔记】解释含义、逻辑、意义\n- 【思考】提1个引导主动思考的问题并给思路，注明相关核心素养或史观\n- 【贯通】指出它与其他知识点、历史时期、中外历史的联系\n\n【内容铁律】\n7. 只依据用户提供的文本和公认史实作答，不确定的标注“(需核对)”。\n8. 使用规范的历史学术语。\n9. 原文中的人物、时间、地名、文件名等信息须准确照录。\n\n若用户没有发文本，只回复：“请把要做笔记的历史文本发给我”。" },
+  { id:"note", name:"① 历史笔记", desc:"两步：先把你粘贴的（可能很乱的）历史文本智能排版，你可编辑确认后再生成带批注的笔记。",
+    placeholder:"把要做笔记的历史文本粘进来…（从 PDF/课本全选复制、排版乱也没关系，我会先帮你理顺）",
+    hint:"两步走：① 粘贴<b>任意历史文本</b>发送→我先帮你<b>排版整理</b>成干净课文（你可在框里直接修改）；② 点“用此排版生成笔记”，我再逐段做【重点】【必背】【笔记】【思考】【贯通】批注。深度随右上角“学段”自动调整。" },
   { id:"material", name:"② 材料题陪练", desc:"发一道材料题（材料+设问），带你一步步分析，不直接给答案。",
     placeholder:"把材料题（材料+设问）粘进来…",
-    hint:"发一道<b>材料分析题</b>（材料+设问）。我不会直接给答案，而是带你挖材料、接课本、判断设问类型，你先写、我再点评。",
-    sys:"你是一名历史解题教练（适用初中到高中，材料题按学段调整难度）。用户会发一道材料题（材料+设问）。不要一上来就给完整答案，而是带用户一步步分析：1.先带“挖材料”——逐条提示：材料出处/作者立场与可信度？时间与时代背景？中心词？有无“但/然而”等转折词或省略号？表格是看趋势还是对比？2.再“架桥回所学”——引导把材料关键词对应到教材考点（如“师夷长技”→洋务运动）；3.判断设问类型（是什么/为什么/影响/评价/比较/主旨），提示对应答题框架；高中材料题按高考评分逻辑（分层、要点、史论结合）；4.让用户先自己写，写完后你再点评、补漏，并给规范参考答案与踩分点。要求：多用反问引导；用规范历史术语；只依据材料和所学知识，不编造，不确定处标注需核对。若用户还没发题，请提示他把材料题发来。" },
+    hint:"发一道<b>材料分析题</b>。我不会直接给答案，而是带你挖材料、接课本、判断设问类型，你先写、我再点评。",
+    sys:"你是一名历史解题教练（适用初中到高中）。用户会发一道材料题（材料+设问）。不要一上来就给完整答案，而是带用户一步步分析：1.先带“挖材料”——逐条提示：材料出处/作者立场与可信度？时间与时代背景？中心词？有无“但/然而”等转折词或省略号？表格是看趋势还是对比？2.再“架桥回所学”——引导把材料关键词对应到教材考点；3.判断设问类型（是什么/为什么/影响/评价/比较/主旨），提示对应答题框架；高中按高考评分逻辑（分层、要点、史论结合）；4.让用户先自己写，写完后你再点评、补漏，并给规范参考答案与踩分点。要求：多用反问引导；用规范历史术语；只依据材料和所学知识，不编造。若还没发题，请提示他发来。" },
   { id:"connect", name:"③ 中外·贯通", desc:"给一个知识点或主题，帮你建立联系、做中外对比，把知识织成网。",
     placeholder:"输入一个知识点或主题，如：明治维新 / 洋务运动 / 边疆治理…",
     hint:"给我一个<b>知识点或主题</b>，我帮你：时空定位→纵向贯通→中外/跨课对比→主动发问→用表格或时间线呈现。",
-    sys:"你是一名擅长“打通知识”的历史老师。用户给一个历史知识点或主题，请帮他织进知识网：1.时空定位：属于哪个时期、什么阶段特征；2.纵向贯通：同一国家或主题下的前因后果、演变线索，列出相关联的其他课知识点；3.横向/中外对比：找出可对比的中外史实（如洋务运动 vs 明治维新、郑和 vs 新航路），列出可比维度（背景/内容/性质/结果）与异同；4.主动发问：提3个能加深理解的问题引导用户自己回答；5.用一张 markdown 对比表或一条时间线呈现。要求：史实准确、术语规范，不确定处标注需核对。" },
+    sys:"你是一名擅长“打通知识”的历史老师。用户给一个知识点或主题，请帮他织进知识网：1.时空定位；2.纵向贯通（同一主题的前因后果、演变线索，列相关联的其他课知识点）；3.横向/中外对比（如洋务运动 vs 明治维新、郑和 vs 新航路），列可比维度与异同；4.主动发问：提3个能加深理解的问题引导用户自己回答；5.用一张 markdown 对比表或一条时间线呈现。要求：史实准确、术语规范，不确定处标注需核对。" },
   { id:"essay", name:"④ 小论文陪练", desc:"发一个小论文题，按“观点—论据—结论”教你写并批改，不替你写。",
     placeholder:"把小论文题（可含材料）粘进来…",
     hint:"发一个<b>小论文题</b>。我按“观点—论据—结论”教你写：先帮你提观点、选史实，你写初稿后我逐项批改并给范文。",
-    sys:"你是历史小论文写作教练。用户会给一个小论文题（可能含材料）。请按“观点—论据—结论”教他写，而不是替他写：1.帮他从材料/题目提炼一个明确观点（先让用户自己试提，你再优化）；2.引导选2-3个典型史实（中外/古今结合更好），每个史实“史实+分析(怎样支持观点)”成对出现；3.强调史论结合、逻辑清晰、分段成文，篇幅按学段与题目要求（初中约200字，高中开放性论证题约300字，大学学术短论可更长并注意学术规范）；4.用户写完初稿后，你按四点逐项点评：观点是否明确/史实是否准确/是否史论结合/语言是否规范，给修改建议，最后附一篇范文供对照。要求：史实准确、术语规范。若用户还没发题，请提示他把小论文题发来。" },
+    sys:"你是历史小论文写作教练。用户会给一个小论文题（可能含材料）。请按“观点—论据—结论”教他写，而不是替他写：1.帮他从材料/题目提炼明确观点（先让他自己试，你再优化）；2.引导选2-3个典型史实，每个“史实+分析(怎样支持观点)”成对出现；3.强调史论结合、逻辑清晰、分段成文，篇幅按学段（初中约200字，高中开放性论证题约300字，大学学术短论更长且注意学术规范）；4.他写完初稿后，你按四点逐项点评：观点是否明确/史实是否准确/是否史论结合/语言是否规范，给修改建议，最后附范文。要求：史实准确、术语规范。若还没发题，请提示他发来。" },
   { id:"check", name:"⑤ 辨析·检查", desc:"易混知识点辨析；或把你的答案发来当“检查员”批改（不代写）。",
     placeholder:"发几个易混概念，或粘上你写的答案让我批改…",
-    hint:"两种用法：(A) 发几个<b>易混概念</b>（如《天工开物》vs《授时历》），我用表格讲清区别+记忆口诀；(B) 发你写的<b>答案</b>，我只批改挑错、不替你重写。",
-    sys:"你是历史学习助教，有两个用途：(A)易混辨析：用户给几个容易混淆的历史概念或事件，请用 markdown 表格分别列出时间、人物、性质、区别，并给一句“怎么记不混”的口诀；(B)当检查员：用户把自己写的答案发来，你只做批改——对照教材指出史实错误、术语不规范、要点遗漏，并打分说明，但不要直接替他重写，把订正机会留给用户。请根据用户发来的内容判断属于 A 还是 B。要求：依据教材、术语规范、指出不确定处。" },
-  { id:"chat", name:"⑥ AI对话", desc:"自由提问，解释词汇、句子或任何历史疑问。",
-    placeholder:"输入你不懂的历史词汇、句子或问题…",
-    hint:"在这里可以<b>自由提问</b>。把你看到的历史词汇、不理解的名词或整段困惑的文本发过来，我会结合上下文（若有）给出清晰、准确、易理解的解释，且不干涉其他五个工具的笔记。",
-    sys:"你是一名专业且耐心的历史助教。用户会发来具体的历史疑问（词汇解释、句子理解、事件背景、概念辨析等）。请用清晰、准确、通俗易懂的语言解答。回答务必严谨：1.严格依据公认史实，不确定处务必标注'（需核对）'；2.采用分点、小段落或简单表格的形式让逻辑清晰；3.如果是解释词汇/概念，请说清时间、地点、核心内容和历史意义；4.不要使用口语化网络用语，保持学术规范但易懂。绝对禁止使用 <br> 等 HTML 标签。" }
+    hint:"两种用法：(A) 发几个<b>易混概念</b>，我用表格讲清区别+记忆口诀；(B) 发你写的<b>答案</b>，我只批改挑错、不替你重写。",
+    sys:"你是历史学习助教，有两个用途：(A)易混辨析：用户给几个容易混淆的历史概念或事件，请用 markdown 表格分别列出时间、人物、性质、区别，并给一句记忆口诀；(B)当检查员：用户把自己写的答案发来，你只做批改——对照教材指出史实错误、术语不规范、要点遗漏，并打分说明，但不替他重写。请根据用户内容判断属于 A 还是 B。要求：依据教材、术语规范、指出不确定处。" }
 ];
 
 var cfg = loadCfg();
 var curMode = "note";
 var curLevel = cfg.level || "auto";
-var threads = {};
-MODES.forEach(function(m){ threads[m.id]=[]; });
+var threads = {}; MODES.forEach(function(m){ threads[m.id]=[]; });
+var sbThread = []; var sbContext = "";
 
 function loadCfg(){
-  try{ var c=JSON.parse(localStorage.getItem("hxcfg")||"{}"); }catch(e){ c={}; }
+  var c; try{ c=JSON.parse(localStorage.getItem("hxcfg")||"{}"); }catch(e){ c={}; }
   if(!c.provider){ c.provider="deepseek"; c.base=PROVIDERS.deepseek.base; c.model=PROVIDERS.deepseek.model; c.key=""; }
   if(!c.level){ c.level="auto"; }
   return c;
 }
 function saveCfg(){ localStorage.setItem("hxcfg", JSON.stringify(cfg)); }
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function inlineFmt(s){ s=s.replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/`([^`]+)`/g,"<code>$1</code>"); return s.replace(/\*\*/g,""); }
 
-function inlineFmt(s){
-  var escaped = esc(s);
-  escaped = escaped.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-  escaped = escaped.replace(/`([^`]+)`/g, "<code>$1</code>");
-  return escaped;
+var CAL = {"重点":"key","必背":"must","笔记":"note","思考":"think","贯通":"link"};
+function mergeFragments(lines){
+  function frag(s){ s=s.trim(); return s.length>0 && s.length<=3 && !/[，。；：、？！,.;:?!]/.test(s) && !/^【/.test(s) && !SECTIONS[s] && !/^[#▲►|]/.test(s); }
+  var out=[], i=0;
+  while(i<lines.length){
+    if(frag(lines[i])){ var run=[],j=i; while(j<lines.length&&frag(lines[j])){ run.push(lines[j].trim()); j++; } if(run.length>=4){ out.push(run.join("、")); i=j; continue; } }
+    out.push(lines[i]); i++;
+  }
+  return out;
 }
-
 function renderContent(text){
-  // 修复 <br> 问题：同时替换 <br> 和 &lt;br&gt;
-  text = text.replace(/<br\s*\/?>/gi, "\n");
-  text = text.replace(/&lt;br\s*\/?&gt;/gi, "\n");
-  
-  var lines = text.split(/\r?\n/);
-  var html = "", i = 0;
-  var calMap = {"重点":"key","必背":"must","笔记":"note","思考":"think","贯通":"link"};
-  // 支持 # 重点 格式（AI 可能误用）
-  var hashCalMap = {"重点":"key","必背":"must","笔记":"note","思考":"think","贯通":"link"};
-  
-  while(i < lines.length){
-    var raw = lines[i];
-    var line = raw.replace(/\s+$/,"");
-    var t = line.trim();
-    
-    if(t === ""){
-      i++;
-      continue;
+  var lines = mergeFragments(text.split(/\r?\n/));
+  var html="", i=0;
+  while(i<lines.length){
+    var t=lines[i].replace(/\s+$/,"").trim();
+    if(t===""){ i++; continue; }
+    if(/^\|.*\|/.test(t)){ var tb=[]; while(i<lines.length&&/^\s*\|.*\|/.test(lines[i])){ tb.push(lines[i].trim()); i++; } html+=renderTable(tb); continue; }
+    var hm=t.match(/^(#{1,6})\s+(.*)$/); if(hm){ html+="<h3>"+inlineFmt(esc(hm[2]))+"</h3>"; i++; continue; }
+    if(/^【(重点|必背|笔记|思考|贯通)】/.test(t)){
+      html+='<div class="notebox">';
+      while(i<lines.length){ var lt=lines[i].trim(); var cm=lt.match(/^【(重点|必背|笔记|思考|贯通)】\s*(.*)$/); if(!cm) break;
+        html+='<div class="noteline"><span class="tag '+CAL[cm[1]]+'">'+cm[1]+'</span>'+inlineFmt(esc(cm[2]))+'</div>'; i++; }
+      html+='</div>'; continue;
     }
-
-    // 分割线
-    if(/^---+$/.test(t) || /^\*\*\*+$/.test(t)){
-      html += "<hr>"; i++; continue;
-    }
-
-    // 块引用
-    if(/^>\s+/.test(t)){
-      var blockLines = [];
-      while(i < lines.length && /^>\s+/.test(lines[i].trim())){
-        blockLines.push(lines[i].trim().replace(/^>\s+/, ""));
-        i++;
-      }
-      html += "<blockquote>" + inlineFmt(esc(blockLines.join("<br>"))) + "</blockquote>";
-      continue;
-    }
-
-    // Markdown 标题 (# ## ###)
-    var hm = t.match(/^(#{1,6})\s+(.*)$/);
-    if(hm){
-      var hlevel = hm[1].length;
-      var htag = "h" + Math.min(hlevel + 1, 6);
-      html += "<" + htag + ">" + inlineFmt(esc(hm[2])) + "</" + htag + ">";
-      i++; continue;
-    }
-
-    // 中文序数标题（一、 / （一） / 第X章）
-    if(/^[一二三四五六七八九十]+[、．]\s+/.test(t) || 
-       /^（[一二三四五六七八九十]+）\s+/.test(t) ||
-       /^第[一二三四五六七八九十]+[章节]\s+/.test(t)){
-      html += "<h4>" + inlineFmt(esc(t)) + "</h4>";
-      i++; continue;
-    }
-
-    // 表格
-    if(/^\|.*\|/.test(t)){
-      var tbl = [];
-      while(i < lines.length && /^\s*\|.*\|/.test(lines[i])){
-        tbl.push(lines[i].trim());
-        i++;
-      }
-      html += renderTable(tbl); continue;
-    }
-
-    // 🔥 修复：支持 # 重点 / # 必背 格式（作为卡片标签）
-    var hashMatch = t.match(/^#\s*(重点|必背|笔记|思考|贯通)\s*$/);
-    if(hashMatch){
-      // 单独一行的 # 重点，后面跟着内容（下一行）
-      var tagName = hashMatch[1];
-      var cls = hashCalMap[tagName];
-      // 收集后续行作为内容（直到遇到下一个标签或空行）
-      var contentLines = [];
-      i++;
-      while(i < lines.length){
-        var nextLine = lines[i].trim();
-        // 如果遇到下一个 # 标签或 【】标签，停止收集
-        if(/^#\s*(重点|必背|笔记|思考|贯通)\s*$/.test(nextLine) || /^【(重点|必背|笔记|思考|贯通)】/.test(nextLine)){
-          break;
-        }
-        if(nextLine !== ""){
-          contentLines.push(lines[i].trim());
-        }
-        i++;
-      }
-      var contentText = contentLines.join(" ");
-      html += '<div class="cal '+cls+'"><span class="lab">'+tagName+'</span>'+inlineFmt(esc(contentText))+'</div>';
-      continue;
-    }
-
-    // 🔥 修复：支持 【重点】 格式（标准格式）
-    var cm = t.match(/^【(重点|必背|笔记|思考|贯通)】\s*(.*)$/);
-    if(cm){
-      var cls = calMap[cm[1]];
-      html += '<div class="cal '+cls+'"><span class="lab">'+cm[1]+'</span>'+inlineFmt(esc(cm[2]))+'</div>';
-      i++; continue;
-    }
-
-    // 教材栏目（学习聚焦、史料阅读等）
-    var core = t.replace(/^[#>*\s]+/,"").replace(/[*#\s]+$/,"").replace(/^[【\[]/,"").replace(/[】\]]$/,"").replace(/[:：]\s*$/,"").trim();
-    if(SECTIONS[core]){
-      html += '<div class="sec">'+esc(core)+'</div>';
-      i++; continue;
-    }
-
-    // 图注
-    if(/^[▲►]/.test(t)){
-      html += '<div class="cap2">'+inlineFmt(esc(t.replace(/^[▲►]\s*/,"")))+'</div>';
-      i++; continue;
-    }
-
-    // 无序列表
-    if(/^(\-|\*|•)\s+/.test(t)){
-      html += "<ul>";
-      while(i < lines.length && /^\s*(\-|\*|•)\s+/.test(lines[i])){
-        html += "<li>"+inlineFmt(esc(lines[i].trim().replace(/^(\-|\*|•)\s+/,"")))+"</li>";
-        i++;
-      }
-      html += "</ul>"; continue;
-    }
-
-    // 有序列表
-    if(/^\d+[\.、)]\s+/.test(t)){
-      html += "<ol>";
-      while(i < lines.length && /^\s*\d+[\.、)]\s+/.test(lines[i])){
-        html += "<li>"+inlineFmt(esc(lines[i].trim().replace(/^\d+[\.、)]\s+/,"")))+"</li>";
-        i++;
-      }
-      html += "</ol>"; continue;
-    }
-
-    // 普通段落
-    html += "<p>" + inlineFmt(esc(t)) + "</p>";
-    i++;
+    var core=t.replace(/^[#>*\s]+/,"").replace(/[*#\s]+$/,"").replace(/^[【\[]/,"").replace(/[】\]]$/,"").replace(/[:：]\s*$/,"").trim();
+    if(SECTIONS[core]){ html+='<div class="sec">'+esc(core)+'</div>'; i++; continue; }
+    if(/^[▲►]/.test(t)){ html+='<div class="cap2">'+inlineFmt(esc(t.replace(/^[▲►]\s*/,"")))+'</div>'; i++; continue; }
+    if(/^(\-|\*|•)\s+/.test(t)){ html+="<ul>"; while(i<lines.length&&/^\s*(\-|\*|•)\s+/.test(lines[i])){ html+="<li>"+inlineFmt(esc(lines[i].trim().replace(/^(\-|\*|•)\s+/,"")))+"</li>"; i++; } html+="</ul>"; continue; }
+    if(/^\d+[\.、)]\s+/.test(t)){ html+="<ol>"; while(i<lines.length&&/^\s*\d+[\.、)]\s+/.test(lines[i])){ html+="<li>"+inlineFmt(esc(lines[i].trim().replace(/^\d+[\.、)]\s+/,"")))+"</li>"; i++; } html+="</ol>"; continue; }
+    html+="<p>"+inlineFmt(esc(t))+"</p>"; i++;
   }
   return html;
 }
-
 function renderTable(rows){
-  if(rows.length===0) return "";
-  function cells(r){ var a=r.replace(/^\|/,"").replace(/\|$/,"").split("|"); return a.map(function(x){return x.trim();}); }
-  var out="<table>", start=0;
-  var header=cells(rows[0]);
-  var hasSep = rows.length>1 && /^[\s:\-\|]+$/.test(rows[1]);
-  out+="<tr>"; header.forEach(function(c){ out+="<th>"+inlineFmt(esc(c))+"</th>"; }); out+="</tr>";
-  start = hasSep?2:1;
-  for(var r=start;r<rows.length;r++){
-    var cc=cells(rows[r]); out+="<tr>";
-    cc.forEach(function(c){ out+="<td>"+inlineFmt(esc(c))+"</td>"; }); out+="</tr>";
-  }
+  if(!rows.length) return "";
+  function cells(r){ return r.replace(/^\|/,"").replace(/\|$/,"").split("|").map(function(x){return x.trim();}); }
+  var out="<table>", h=cells(rows[0]), sep=rows.length>1&&/^[\s:\-\|]+$/.test(rows[1]);
+  out+="<tr>"; h.forEach(function(c){ out+="<th>"+inlineFmt(esc(c))+"</th>"; }); out+="</tr>";
+  for(var r=sep?2:1;r<rows.length;r++){ var cc=cells(rows[r]); out+="<tr>"; cc.forEach(function(c){ out+="<td>"+inlineFmt(esc(c))+"</td>"; }); out+="</tr>"; }
   return out+"</table>";
 }
 
 function renderTabs(){
   var tabs=document.getElementById("tabs"); tabs.innerHTML="";
-  MODES.forEach(function(m){
-    var el=document.createElement("div");
-    el.className="tab"+(m.id===curMode?" active":"");
-    el.textContent=m.name;
+  MODES.forEach(function(m){ var el=document.createElement("div"); el.className="tab"+(m.id===curMode?" active":""); el.textContent=m.name;
     el.onclick=function(){ curMode=m.id; renderTabs(); renderChat(); document.getElementById("input").placeholder=m.placeholder; };
-    tabs.appendChild(el);
-  });
-  var m=MODES.find(function(x){return x.id===curMode;});
-  document.getElementById("tabdesc").textContent=m.desc;
-  document.getElementById("input").placeholder=m.placeholder;
+    tabs.appendChild(el); });
+  var m=cur(); document.getElementById("tabdesc").textContent=m.desc; document.getElementById("input").placeholder=m.placeholder;
 }
+function cur(){ return MODES.find(function(x){return x.id===curMode;}); }
 function renderChat(){
   var wrap=document.getElementById("wrap"); wrap.innerHTML="";
-  var m=MODES.find(function(x){return x.id===curMode;});
-  var hint=document.createElement("div"); hint.className="hintcard"; hint.innerHTML="<b>"+m.name+"</b><br>"+m.hint;
-  wrap.appendChild(hint);
+  var m=cur(); var hint=document.createElement("div"); hint.className="hintcard"; hint.innerHTML="<b>"+m.name+"</b><br>"+m.hint; wrap.appendChild(hint);
   threads[curMode].forEach(function(msg,idx){ wrap.appendChild(bubble(msg,idx)); });
-  var chat=document.getElementById("chat"); chat.scrollTop=chat.scrollHeight;
+  scrollChat();
 }
 function bubble(msg,idx){
-  var d=document.createElement("div"); d.className="msg "+msg.role;
-  var who=document.createElement("div"); who.className="who"; who.textContent=msg.role==="user"?"我":"助手";
-  var b=document.createElement("div"); b.className="bubble";
-  if(msg.role==="assistant"){ b.className="bubble rc"; b.innerHTML=msg.html||renderContent(msg.content); }
-  else { b.textContent=msg.content; }
-  d.appendChild(who); d.appendChild(b);
-  if(msg.role==="assistant" && !msg.pending){
-    var tools=document.createElement("div"); tools.className="tools";
+  var d=document.createElement("div"); d.className="msg "+(msg.role==="user"?"user":"assistant");
+  var who=document.createElement("div"); who.className="who"; who.textContent=msg.role==="user"?"我":"助手"; d.appendChild(who);
+  if(msg.role==="user"){ var b=document.createElement("div"); b.className="bubble"; b.textContent=msg.content; d.appendChild(b); return d; }
+  if(msg.kind==="format"){
+    var b1=document.createElement("div"); b1.className="bubble";
+    if(msg.pending){ b1.innerHTML='<div class="fmtlabel">① 正在排版整理…</div><div class="rc"><span class="typing">'+esc(msg.content||"")+'▍</span></div>'; }
+    else{
+      b1.innerHTML='<div class="fmtlabel">① 已排版整理（可直接修改，再生成笔记）</div>';
+      var ta=document.createElement("textarea"); ta.className="fmtedit"; ta.value=msg.content; ta.id="fmt_"+idx; b1.appendChild(ta);
+      var tools=document.createElement("div"); tools.className="tools"; tools.style.marginTop="8px";
+      var gen=document.createElement("button"); gen.className="btn btn-primary btn-sm"; gen.textContent="② 用此排版生成笔记";
+      gen.onclick=function(){ generateNotes(document.getElementById("fmt_"+idx).value); };
+      var ex=document.createElement("button"); ex.className="btn btn-secondary btn-sm"; ex.textContent="导出排版 PDF";
+      ex.onclick=function(){ exportPDF(document.getElementById("fmt_"+idx).value,"排版整理"); };
+      tools.appendChild(gen); tools.appendChild(ex); b1.appendChild(tools);
+    }
+    d.appendChild(b1); return d;
+  }
+  var b=document.createElement("div"); b.className="bubble rc"; b.innerHTML=msg.html||renderContent(msg.content||""); d.appendChild(b);
+  if(!msg.pending){
+    var tl=document.createElement("div"); tl.className="tools";
     var ex=document.createElement("button"); ex.className="btn btn-primary btn-sm"; ex.textContent="导出 PDF";
-    ex.onclick=function(){ exportPDF(msg.content); };
-    var cp=document.createElement("button"); cp.className="btn btn-ghost btn-sm"; cp.style.background="#eef1f4"; cp.style.color="#333"; cp.textContent="复制";
+    ex.onclick=function(){ exportPDF(msg.content, cur().name.replace(/^[①②③④⑤]\s*/,"")); };
+    var cp=document.createElement("button"); cp.className="btn btn-secondary btn-sm"; cp.textContent="复制";
     cp.onclick=function(){ navigator.clipboard.writeText(msg.content); cp.textContent="已复制"; setTimeout(function(){cp.textContent="复制";},1500); };
-    tools.appendChild(ex); tools.appendChild(cp); d.appendChild(tools);
+    tl.appendChild(ex); tl.appendChild(cp); d.appendChild(tl);
   }
   return d;
 }
 
-var sending=false;
+var busy=false;
 function send(){
-  if(sending) return;
-  var ta=document.getElementById("input"); var text=ta.value.trim();
-  if(!text) return;
+  if(busy) return;
+  var ta=document.getElementById("input"); var text=ta.value.trim(); if(!text) return;
   if(!cfg.key){ openModal(); return; }
-  var m=MODES.find(function(x){return x.id===curMode;});
+  if(curMode==="note"){ ta.value=""; ta.style.height="auto"; noteFormat(text); return; }
+  threads[curMode].push({role:"user",content:text}); ta.value=""; ta.style.height="auto";
+  var asst={role:"assistant",content:"",pending:true}; threads[curMode].push(asst);
+  renderChat(); var target=lastBubble(); target.innerHTML='<span class="typing">正在思考…</span>';
+  busy=true; setSend(false);
+  var msgs=[{role:"system",content:cur().sys+"\n\n"+dir()}].concat(threads[curMode].filter(function(x){return !x.pending&&x.role;}).map(function(x){return {role:x.role,content:x.content};}));
+  streamChat(msgs, function(dt){ asst.content+=dt; target.innerHTML=renderContent(asst.content); scrollChat(); }, function(err){ finishMain(asst,target,err); });
+}
+function noteFormat(text){
   threads[curMode].push({role:"user",content:text});
-  ta.value=""; ta.style.height="auto";
-  var asst={role:"assistant",content:"",pending:true};
-  threads[curMode].push(asst);
-  renderChat();
-  var bubbleEl = document.querySelectorAll("#wrap .assistant .bubble");
-  var target = bubbleEl[bubbleEl.length-1];
-  target.className="bubble rc"; target.innerHTML='<span class="typing">正在思考…</span>';
-  sending=true; setSend(false);
-
-  var lvl=(LEVELS[curLevel]||LEVELS.auto).dir;
-  var messages=[{role:"system",content:m.sys+"\n\n"+lvl}].concat(
-    threads[curMode].filter(function(x){return !x.pending;}).map(function(x){return {role:x.role,content:x.content};})
-  );
-  streamChat(messages, function(delta){
-    asst.content+=delta;
-    target.innerHTML=renderContent(asst.content);
-    var chat=document.getElementById("chat"); chat.scrollTop=chat.scrollHeight;
-  }, function(err){
-    sending=false; setSend(true); asst.pending=false;
-    if(err){
-      target.innerHTML='<div class="err">出错了：'+esc(err)+'</div><div style="font-size:12.5px;color:#5a6472;margin-top:6px">常见原因：①API Key 未填或无效（点右上角⚙设置）；②余额不足；③浏览器直连被 CORS 拦截——若多次失败，把这条告诉我，我给你加一个很小的本地转发即可。</div>';
-    } else {
-      asst.html=renderContent(asst.content);
-    }
+  var fmt={role:"assistant",kind:"format",content:"",pending:true}; threads[curMode].push(fmt);
+  renderChat(); busy=true; setSend(false);
+  var msgs=[{role:"system",content:NOTE_FORMAT+"\n\n"+dir()},{role:"user",content:text}];
+  streamChat(msgs, function(dt){ fmt.content+=dt; var el=document.querySelector("#wrap .msg:last-child .bubble .rc .typing"); if(el){ el.textContent=fmt.content+"▍"; } scrollChat(); }, function(err){
+    busy=false; setSend(true); fmt.pending=false;
+    if(err){ fmt.kind="notes"; fmt.content="排版出错："+err; }
     renderChat();
   });
 }
+function generateNotes(cleanText){
+  if(busy) return; if(!cleanText.trim()) return;
+  var asst={role:"assistant",kind:"notes",content:"",pending:true}; threads[curMode].push(asst);
+  renderChat(); var target=lastBubble(); target.innerHTML='<span class="typing">正在生成笔记…</span>';
+  busy=true; setSend(false);
+  var msgs=[{role:"system",content:NOTE_ANNOTATE+"\n\n"+dir()},{role:"user",content:"下面是整理好的课文：\n\n"+cleanText}];
+  streamChat(msgs, function(dt){ asst.content+=dt; target.innerHTML=renderContent(asst.content); scrollChat(); }, function(err){ finishMain(asst,target,err); });
+}
+function finishMain(asst,target,err){
+  busy=false; setSend(true); asst.pending=false;
+  if(err){ target.innerHTML='<div class="err">出错了：'+esc(err)+'</div><div style="font-size:12.5px;color:#5a6472;margin-top:6px">常见原因：API Key 未填/无效（点⚙设置）、余额不足、或网络问题。</div>'; }
+  else { asst.html=renderContent(asst.content); }
+  renderChat();
+}
+function lastBubble(){ var b=document.querySelectorAll("#wrap .assistant .bubble"); return b[b.length-1]; }
+function scrollChat(){ var c=document.getElementById("chat"); c.scrollTop=c.scrollHeight; }
 function setSend(on){ var b=document.getElementById("sendBtn"); b.disabled=!on; b.textContent=on?"发送":"生成中"; }
+function dir(){ return (LEVELS[curLevel]||LEVELS.auto).dir; }
 
 function streamChat(messages, onDelta, onDone){
-  var url="/api/chat";
-  fetch(url,{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
+  fetch("/api/chat",{ method:"POST", headers:{"Content-Type":"application/json"},
     body:JSON.stringify({base:cfg.base,model:cfg.model,key:cfg.key,messages:messages,stream:true,temperature:0.4})
   }).then(function(resp){
     if(!resp.ok){ return resp.text().then(function(t){ throw new Error("HTTP "+resp.status+" "+t.slice(0,200)); }); }
-    var reader=resp.body.getReader(); var dec=new TextDecoder("utf-8"); var buf="";
-    function pump(){
-      return reader.read().then(function(res){
-        if(res.done){ onDone(null); return; }
-        buf+=dec.decode(res.value,{stream:true});
-        var parts=buf.split("\n"); buf=parts.pop();
-        parts.forEach(function(line){
-          line=line.trim(); if(!line||line.indexOf("data:")!==0) return;
-          var data=line.slice(5).trim();
-          if(data==="[DONE]"){ return; }
-          try{ var j=JSON.parse(data); var d=j.choices&&j.choices[0]&&j.choices[0].delta; if(d&&d.content){ onDelta(d.content); } }catch(e){}
-        });
-        return pump();
-      });
-    }
+    var reader=resp.body.getReader(), dec=new TextDecoder("utf-8"), buf="";
+    function pump(){ return reader.read().then(function(res){
+      if(res.done){ onDone(null); return; }
+      buf+=dec.decode(res.value,{stream:true}); var parts=buf.split("\n"); buf=parts.pop();
+      parts.forEach(function(line){ line=line.trim(); if(!line||line.indexOf("data:")!==0) return; var data=line.slice(5).trim(); if(data==="[DONE]") return;
+        try{ var j=JSON.parse(data); var d=j.choices&&j.choices[0]&&j.choices[0].delta; if(d&&d.content) onDelta(d.content); }catch(e){} });
+      return pump();
+    }); }
     return pump();
   }).catch(function(e){ onDone(e.message||String(e)); });
 }
 
-function exportPDF(content){
-  var m=MODES.find(function(x){return x.id===curMode;});
-  var now=new Date(); var ds=now.getFullYear()+"-"+p2(now.getMonth()+1)+"-"+p2(now.getDate());
-  var body=renderContent(content);
+function toggleSidebar(){ document.body.classList.toggle("sb-closed"); }
+function renderSB(){
+  var box=document.getElementById("chatMessages"); box.innerHTML="";
+  sbThread.forEach(function(m){
+    var d=document.createElement("div"); d.className="sbmsg "+m.role;
+    var who=document.createElement("div"); who.className="who"; who.textContent=m.role==="user"?"我":"AI 导师";
+    var b=document.createElement("div");
+    if(m.role==="assistant"){ b.className="b rc"; b.innerHTML=m.html||renderContent(m.content||""); } else { b.className="b"; b.textContent=m.display||m.content; }
+    d.appendChild(who); d.appendChild(b); box.appendChild(d);
+  });
+  box.scrollTop=box.scrollHeight;
+}
+function setContext(txt){
+  sbContext=txt||"";
+  var bar=document.getElementById("contextBar");
+  if(sbContext){ bar.className="context-bar"; bar.innerHTML='<span class="clr" onclick="setContext(&quot;&quot;)">清除</span>当前选中：'+esc(sbContext.length>140?sbContext.slice(0,140)+"…":sbContext); }
+  else { bar.className="context-bar empty"; bar.textContent="选中主区域的任意文字，会悬浮一个按钮，点它即可就此内容向导师提问。"; }
+}
+var sbBusy=false;
+function sendChat(){
+  if(sbBusy) return;
+  var inp=document.getElementById("chatInput"); var q=inp.value.trim(); if(!q) return;
+  if(!cfg.key){ openModal(); return; }
+  var userContent = sbContext ? ("【选中的内容】\n"+sbContext+"\n\n【我的问题】\n"+q) : q;
+  var display = sbContext ? ("〔就选中内容提问〕 "+q) : q;
+  sbThread.push({role:"user",content:userContent,display:display}); inp.value="";
+  var asst={role:"assistant",content:"",pending:true}; sbThread.push(asst);
+  renderSB();
+  var box=document.getElementById("chatMessages"); var target=box.querySelector(".sbmsg:last-child .b"); target.innerHTML='<span class="typing">思考中…</span>';
+  sbBusy=true;
+  var msgs=[{role:"system",content:SIDEBAR_SYS+"\n\n"+dir()}].concat(sbThread.filter(function(x){return !x.pending;}).map(function(x){return {role:x.role,content:x.content};}));
+  streamChat(msgs, function(dt){ asst.content+=dt; target.innerHTML=renderContent(asst.content); box.scrollTop=box.scrollHeight; }, function(err){
+    sbBusy=false; asst.pending=false; if(err){ asst.content="出错了："+err; } asst.html=renderContent(asst.content); renderSB();
+  });
+}
+var lastSel="";
+document.addEventListener("mouseup", function(e){
+  if(e.target && e.target.id==="selBubble") return;
+  setTimeout(function(){
+    var sel=window.getSelection(); var txt=sel?sel.toString().trim():"";
+    var main=document.getElementById("mainCol"); var within=sel&&sel.anchorNode&&main.contains(sel.anchorNode);
+    var bub=document.getElementById("selBubble");
+    if(txt.length>0 && within){
+      lastSel=txt; var rect=sel.getRangeAt(0).getBoundingClientRect();
+      bub.style.display="block"; var top=rect.top-40; if(top<8) top=rect.bottom+8;
+      bub.style.top=top+"px"; bub.style.left=Math.max(8,Math.min(rect.left, window.innerWidth-170))+"px";
+    } else { bub.style.display="none"; }
+  },10);
+});
+document.getElementById("selBubble").addEventListener("mousedown", function(e){ e.preventDefault(); });
+document.getElementById("selBubble").addEventListener("click", function(){
+  setContext(lastSel); document.body.classList.remove("sb-closed"); this.style.display="none"; document.getElementById("chatInput").focus();
+});
+document.getElementById("chatSend").onclick=sendChat;
+document.getElementById("chatInput").addEventListener("keypress",function(e){ if(e.key==="Enter") sendChat(); });
+
+function chatToMD(){
+  var md="# AI 导师对话记录\n\n";
+  sbThread.forEach(function(m){ if(m.pending) return; md+=(m.role==="user"?"**我：**":"**AI 导师：**")+"\n\n"+m.content+"\n\n---\n\n"; });
+  return md;
+}
+function exportChatMD(){
+  var blob=new Blob([chatToMD()],{type:"text/markdown;charset=utf-8"});
+  var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="AI导师对话.md"; a.click(); URL.revokeObjectURL(a.href);
+}
+function exportChatPDF(){
+  var body="";
+  sbThread.forEach(function(m){ if(m.pending) return;
+    if(m.role==="user"){ body+='<div class="q"><b>我：</b>'+inlineFmt(esc(m.content))+'</div>'; }
+    else { body+='<div class="a"><b>AI 导师：</b></div><div class="rc">'+renderContent(m.content)+'</div>'; } });
+  openPrint("AI 导师对话", body);
+}
+
+function exportPDF(content, titleName){ openPrint(titleName||"历史学习", '<div class="rc">'+renderContent(content)+'</div>'); }
+function openPrint(titleName, bodyHTML){
+  var now=new Date(), ds=now.getFullYear()+"-"+p2(now.getMonth()+1)+"-"+p2(now.getDate());
   var css='@page{size:A4;margin:18mm 16mm}'+
   '*{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}'+
-  'body{font-family:"Songti SC","SimSun","Microsoft YaHei",serif;color:#222;line-height:1.8;font-size:12.5pt}'+
-  '.head{border-bottom:3px solid #1f3a5f;padding-bottom:8px;margin-bottom:16px}'+
-  '.head h1{color:#1f3a5f;font-size:19pt;margin:0}'+
-  '.head .meta{color:#5a6472;font-size:9.5pt;margin-top:4px}'+
-  'h3{color:#1f3a5f;font-size:14pt;margin:14px 0 6px}'+
-  'h4{color:#1f3a5f;font-size:13pt;margin:14px 0 4px;border-bottom:1px solid #ddd;padding-bottom:4px}'+
-  'p{margin:5px 0}strong{color:#000}'+
-  'ul,ol{margin:5px 0 5px 22px}li{margin:3px 0}'+
-  'table{border-collapse:collapse;width:100%;margin:8px 0;font-size:10.5pt}'+
-  'th,td{border:1px solid #99a;padding:5px 8px;text-align:left;vertical-align:top}'+
-  'th{background:#1f3a5f;color:#fff}tr:nth-child(even) td{background:#eef2f7}'+
-  '.sec{margin:13px 0 6px;padding:5px 12px;background:#eef1f4;border-left:4px solid #1f3a5f;border-radius:6px;font-weight:700;color:#1f3a5f;font-size:12pt;page-break-after:avoid}'+
-  '.cap2{color:#5a6472;font-size:10.5pt;margin:4px 0}'+
-  'blockquote{margin:10px 0;padding:8px 14px;background:#f0f4fa;border-left:5px solid #1f3a5f;border-radius:0 6px 6px 0;color:#1f2a3a}'+
-  'hr{border:0;border-top:2px dashed #bbb;margin:16px 0}'+
-  '.cal{margin:4px 0;padding:2px 0;background:transparent !important;border-left:none !important;border-radius:0 !important;color:#222;page-break-inside:avoid}'+
-  '.cal .lab{display:inline-block;padding:0 8px;border-radius:10px;font-size:9pt;font-weight:700;color:#fff;margin-right:5px;line-height:1.8}'+
-  '.cal.key .lab{background:#b58900}'+
-  '.cal.must .lab{background:#b0302e}'+
-  '.cal.note .lab{background:#154c9e}'+
-  '.cal.think .lab{background:#6b3fa0}'+
-  '.cal.link .lab{background:#1e6b3a}'+
+  'body{font-family:"Songti SC","SimSun","Microsoft YaHei",serif;color:#1c1c1c;line-height:1.8;font-size:12.5pt}'+
+  '.head{border-bottom:3px solid #1f3a5f;padding-bottom:8px;margin-bottom:16px}.head h1{color:#1f3a5f;font-size:19pt;margin:0}.head .meta{color:#5a6472;font-size:9.5pt;margin-top:4px}'+
+  'h3{color:#1f3a5f;font-size:14pt;margin:13px 0 5px}p{margin:5px 0}strong{color:#000}ul,ol{margin:5px 0 5px 22px}li{margin:3px 0}'+
+  'table{border-collapse:collapse;width:100%;margin:8px 0;font-size:10.5pt}th,td{border:1px solid #99a;padding:5px 8px;text-align:left;vertical-align:top}th{background:#1f3a5f;color:#fff}tr:nth-child(even) td{background:#eef2f7}'+
+  '.sec{display:inline-block;background:#e7ecf2;color:#33475e;font-size:10.5pt;font-weight:700;padding:3px 12px;border-radius:13px;margin:12px 0 4px}'+
+  '.cap2{color:#5a6472;font-size:10.5pt;font-style:italic;margin:4px 0}'+
+  '.notebox{border-left:3px solid #b8c2cf;background:#f6f8fa;border-radius:0 8px 8px 0;padding:7px 12px;margin:6px 0;page-break-inside:avoid}'+
+  '.noteline{margin:3px 0}.tag{font-size:9.5pt;font-weight:700;padding:1px 7px;border-radius:5px;margin-right:6px}'+
+  '.tag.key{background:#f6edcf;color:#836200}.tag.must{background:#f4dede;color:#a12a2a}.tag.note{background:#dde7f6;color:#1a4b8f}.tag.think{background:#e7dcf3;color:#573a82}.tag.link{background:#d8ebde;color:#1c6337}'+
+  '.q{margin:8px 0;padding:6px 10px;background:#eef3fb;border-radius:6px}.a{margin-top:8px;font-weight:700;color:#1f3a5f}'+
   '.foot{margin-top:22px;border-top:1px solid #ccc;padding-top:8px;color:#8a94a2;font-size:9pt;text-align:center}';
-  var html='<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>历史学习笔记</title>'+
-    '<style>'+css+'</style></head><body>'+
-    '<div class="head"><h1>历史学习笔记 · '+m.name.replace(/^[①②③④⑤⑥]\s*/,"")+'</h1>'+
-    '<div class="meta">历史学习助手生成 · '+ds+'</div></div>'+
-    '<div class="rc">'+body+'</div>'+
+  var html='<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>'+titleName+'</title><style>'+css+'</style></head><body>'+
+    '<div class="head"><h1>历史学习 · '+titleName+'</h1><div class="meta">历史学习助手生成 · '+ds+'</div></div>'+bodyHTML+
     '<div class="foot">本内容由 AI 依据方法生成，仅供学习参考，硬史实请以教材为准 · 导出于 '+ds+'</div>'+
-    '<script>window.onload=function(){setTimeout(function(){window.print();},300);}<\/script>'+
-    '</body></html>';
-  var w=window.open("","_blank");
-  if(!w){ alert("浏览器拦截了弹窗，请允许弹窗后重试导出。"); return; }
+    '<scr'+'ipt>window.onload=function(){setTimeout(function(){window.print();},300);}</scr'+'ipt></body></html>';
+  var w=window.open("","_blank"); if(!w){ alert("浏览器拦截了弹窗，请允许弹窗后重试导出。"); return; }
   w.document.open(); w.document.write(html); w.document.close();
 }
 function p2(n){ return n<10?"0"+n:""+n; }
 
 function openModal(){
   var sel=document.getElementById("provider"); sel.innerHTML="";
-  Object.keys(PROVIDERS).forEach(function(k){
-    var o=document.createElement("option"); o.value=k; o.textContent=PROVIDERS[k].name; sel.appendChild(o);
-  });
+  Object.keys(PROVIDERS).forEach(function(k){ var o=document.createElement("option"); o.value=k; o.textContent=PROVIDERS[k].name; sel.appendChild(o); });
   sel.value=cfg.provider||"deepseek";
-  document.getElementById("baseUrl").value=cfg.base||"";
-  document.getElementById("model").value=cfg.model||"";
-  document.getElementById("apiKey").value=cfg.key||"";
+  document.getElementById("baseUrl").value=cfg.base||""; document.getElementById("model").value=cfg.model||""; document.getElementById("apiKey").value=cfg.key||"";
   document.getElementById("modal").classList.add("show");
 }
-document.getElementById("provider").addEventListener("change",function(e){
-  var p=PROVIDERS[e.target.value];
-  if(e.target.value!=="custom"){ document.getElementById("baseUrl").value=p.base; document.getElementById("model").value=p.model; }
-});
+document.getElementById("provider").addEventListener("change",function(e){ var p=PROVIDERS[e.target.value]; if(e.target.value!=="custom"){ document.getElementById("baseUrl").value=p.base; document.getElementById("model").value=p.model; } });
 document.getElementById("saveSet").onclick=function(){
   cfg.provider=document.getElementById("provider").value;
   cfg.base=document.getElementById("baseUrl").value.trim()||PROVIDERS[cfg.provider].base;
   cfg.model=document.getElementById("model").value.trim()||PROVIDERS[cfg.provider].model;
-  cfg.key=document.getElementById("apiKey").value.trim();
-  saveCfg(); document.getElementById("modal").classList.remove("show");
+  cfg.key=document.getElementById("apiKey").value.trim(); saveCfg(); document.getElementById("modal").classList.remove("show");
 };
 document.getElementById("cancelSet").onclick=function(){ document.getElementById("modal").classList.remove("show"); };
 document.getElementById("setBtn").onclick=openModal;
+document.getElementById("sbToggle").onclick=toggleSidebar;
 document.getElementById("clearBtn").onclick=function(){ if(confirm("清空当前模式的对话？")){ threads[curMode]=[]; renderChat(); } };
 
 var input=document.getElementById("input");
@@ -548,17 +490,12 @@ input.addEventListener("input",function(){ this.style.height="auto"; this.style.
 input.addEventListener("keydown",function(e){ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); send(); } });
 document.getElementById("sendBtn").onclick=send;
 
-(function(){
-  var sel=document.getElementById("levelSel");
-  Object.keys(LEVELS).forEach(function(k){
-    var o=document.createElement("option"); o.value=k; o.textContent="深度: "+LEVELS[k].label;
-    o.style.color="#222"; sel.appendChild(o);
-  });
-  sel.value=curLevel;
-  sel.addEventListener("change",function(){ curLevel=sel.value; cfg.level=curLevel; saveCfg(); });
+(function(){ var sel=document.getElementById("levelSel");
+  Object.keys(LEVELS).forEach(function(k){ var o=document.createElement("option"); o.value=k; o.textContent="深度: "+LEVELS[k].label; sel.appendChild(o); });
+  sel.value=curLevel; sel.addEventListener("change",function(){ curLevel=sel.value; cfg.level=curLevel; saveCfg(); });
 })();
 
-renderTabs(); renderChat();
+renderTabs(); renderChat(); renderSB(); setContext("");
 if(!cfg.key){ setTimeout(openModal,400); }
 </script>
 </body>
