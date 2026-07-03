@@ -48,8 +48,6 @@
   .rc th,.rc td{border:1px solid #c9d2dc;padding:5px 8px;text-align:left;vertical-align:top}
   .rc th{background:var(--dark);color:#fff}
   .rc tr:nth-child(even) td{background:#eef2f7}
-  .rc .sec{margin:12px 0 5px;padding:6px 12px;background:#eef1f4;border-left:4px solid var(--dark);border-radius:6px;font-weight:700;color:var(--dark);font-size:14px}
-  .rc .cap2{color:var(--grey);font-size:13px;margin:4px 0}
   .cal{padding:7px 11px;border-radius:8px;margin:.4em 0;font-size:14px;line-height:1.7}
   .cal .lab{font-weight:700;font-size:12px;margin-right:6px;padding:1px 7px;border-radius:5px;color:#fff}
   .cal.key{background:var(--hl)}
@@ -86,9 +84,8 @@
 <body>
 <header>
   <h1>历史学习助手</h1>
-  <span class="sub">初中 · 高中 · 大学 · 覆盖任意历史内容</span>
+  <span class="sub">自学 · 材料 · 贯通 · 小论文 · 检查</span>
   <span class="spacer"></span>
-  <select id="levelSel" title="学段/深度" style="border:none;border-radius:8px;padding:6px 9px;font-size:13px;font-family:inherit;background:rgba(255,255,255,.18);color:#fff;cursor:pointer"></select>
   <button class="btn btn-ghost" id="clearBtn">清空本模式</button>
   <button class="btn btn-ghost" id="setBtn">⚙ 设置</button>
 </header>
@@ -148,27 +145,16 @@ var PROVIDERS = {
   custom:{name:"自定义", base:"", model:""}
 };
 
-/* ---------- 学段 / 深度 ---------- */
-var LEVELS = {
-  auto:{ label:"通用·自适应", dir:"【学段·通用自适应】请根据我提供内容本身的难度与范围,自动匹配合适的讲解深度与术语层次:内容浅显就按初中(重基础、通俗),内容涉及概念与论证就按高中(重核心素养与史料实证),内容具学术性就按大学(可引入史学理论与批判)。" },
-  junior:{ label:"初中", dir:"【学段·初中】语言通俗易懂,紧扣课程标准与教材,重基础史实与规范术语;核心素养(唯物史观/时空观念/史料实证/历史解释/家国情怀)以入门方式点到即可。" },
-  senior:{ label:"高中", dir:"【学段·高中】对接高中历史课程标准与高考要求,概念严谨,突出五大核心素养的实际运用(尤其史料实证、历史解释、唯物史观);材料题与开放性论证题按高考评分逻辑;在合适处点明所涉史观(唯物史观/文明史观/全球史观/现代化史观/社会史观)。" },
-  advanced:{ label:"大学 / 进阶", dir:"【学段·大学/进阶】可引入史学理论与方法(史料批判、史学史、不同史观流派、历史解释的多元性),鼓励学术性与思辨性分析,比较不同学者/学派的观点;论文按学术短论标准(论点—论据—论证—学术规范),必要时提示可延伸阅读的方向。" }
-};
-
-/* ---------- 教材栏目/板块名(用于自动识别排版) ---------- */
-var SECTIONS = {"学习聚焦":1,"历史纵横":1,"史料阅读":1,"学思之窗":1,"思考点":1,"探究与拓展":1,"问题探究":1,"学习拓展":1,"相关史事":1,"材料研读":1,"人物扫描":1,"想一想":1,"读地图":1,"知识拓展":1,"课后活动":1,"导入":1,"情境导入":1,"本课小结":1,"融会贯通":1,"方法点拨":1,"史事概览":1};
-
 /* ---------- 五个工具的系统提示 ---------- */
 var MODES = [
-  { id:"note", name:"① 历史笔记", desc:"粘贴任意历史文本（初中/高中/大学教材章节，或任何一段史料、历史论述），生成带批注的自学笔记。最可靠。",
-    placeholder:"把要做笔记的历史文本粘进来…（教材章节 / 史料 / 任意历史文字均可）",
-    hint:"把<b>任意历史文本</b>整段粘进来（初高中/大学教材、史料、论述都行），我会一字不差照录，并在下方做【重点】【必背】【笔记】【思考】【贯通】批注，最后给小结表。深度会随右上角“学段”自动调整。",
-    sys:"你是一名历史学习助教。请把用户发来的【历史文本】整理成用于自学的批注式笔记。文本可以是初中/高中/大学教材的章节，也可以是任意一段与历史相关的文字、史料或论述。三条铁律：1.只依据用户提供的文本和公认史实作答，文本没有的不要编造，不确定的标注“(需核对)”；2.使用规范的历史学术语，不用口语；3.你是“批注”不是“改写”，原文必须一字不差保留。输出：一、按原文顺序照录正文及所有小标题/栏目（若含教材栏目如相关史事/史料阅读/学思之窗/历史纵横/探究与拓展/人物扫描等，一并照录），原文不变；二、在每段原文下方另起一行用这些标记做批注（每个标记单独成行）：【重点】标关键词句；【必背】列须记忆的时间/人物/概念/文件/制度；【笔记】解释含义、逻辑、意义；【思考】提1个引导主动思考的问题并给思路，注明相关核心素养（唯物史观/时空观念/史料实证/历史解释/家国情怀）或所涉史观；【贯通】主动指出它与其他知识点、其他历史时期、中外历史或其他学科的联系。排版要求（务必遵守）：(a)主动识别原文中的每个板块/栏目（如 学习聚焦、历史纵横、史料阅读、学思之窗、思考点、探究与拓展、问题探究、学习拓展、相关史事、材料研读、人物扫描、想一想、读地图、知识拓展 等），把板块名单独放在一行、独占一段，放在该板块内容前面；(b)无论内容属于哪个学段，都必须使用【重点】【必背】【笔记】【思考】【贯通】这五种标记来做批注，每个标记单独成一行，不要用加粗、也不要用 ** 星号或其它格式来代替这些标记；(c)正文与批注分行，条理清晰。三、最后给一张 markdown 小结表，再用一段说明“这段内容能和哪些知识打通”。若用户没有发文本，只回复：“请把要做笔记的历史文本发给我（教材章节或任意历史文字均可）”。" },
+  { id:"note", name:"① 章节笔记", desc:"粘贴教材某一课的原文，生成带批注的自学笔记（照录原文 + 五色批注 + 主动发问）。最可靠。",
+    placeholder:"把课本这一课的文字复制粘贴进来…",
+    hint:"把课本某一课的<b>原文文字</b>整段粘进来发送，我会一字不差照录，并在下方做【重点】【必背】【笔记】【思考】【贯通】批注，最后给小结表。",
+    sys:"你是一名初中历史自学助教，面向中国大陆统编/上海教材的初中生。请把用户发来的【教材原文】整理成用于自学的批注式笔记。三条铁律：1.只依据用户提供的教材原文和公认基础史实作答，原文没有的不要编造，不确定的标注“(需核对教材)”；2.全程用教材规范术语（如“君主专制强化”“中央集权”“半殖民地半封建社会”），不用口语；3.你是“批注”不是“改写”，教材正文必须一字不差保留。输出：一、按教材顺序照录正文及各栏目（相关史事/材料研读/人物扫描/想一想/知识拓展/课后活动），原文不变；二、在每段原文下方另起一行用这些标记做批注（每个标记单独成行）：【重点】标关键词句；【必背】列时间/人物/条约/概念；【笔记】解释含义、逻辑、为何这样做；【思考】提1个引导主动思考的问题并给思路，可注明核心素养（唯物史观/时空观念/史料实证/历史解释/家国情怀）；【贯通】若能与其他课或中外历史建立联系就主动指出；三、最后给一张 markdown 小结表，再用一段说明“这一课能和哪些知识打通”。若用户没有发原文，只回复：“请把要做笔记的教材章节原文发给我”。" },
   { id:"material", name:"② 材料题陪练", desc:"发一道材料题（材料+设问），带你一步步分析，不直接给答案。",
     placeholder:"把材料题（材料+设问）粘进来…",
     hint:"发一道<b>材料分析题</b>（材料+设问）。我不会直接给答案，而是带你挖材料、接课本、判断设问类型，你先写、我再点评。",
-    sys:"你是一名历史解题教练（适用初中到高中，材料题按学段调整难度）。用户会发一道材料题（材料+设问）。不要一上来就给完整答案，而是带用户一步步分析：1.先带“挖材料”——逐条提示：材料出处/作者立场与可信度？时间与时代背景？中心词？有无“但/然而”等转折词或省略号？表格是看趋势还是对比？2.再“架桥回所学”——引导把材料关键词对应到教材考点（如“师夷长技”→洋务运动）；3.判断设问类型（是什么/为什么/影响/评价/比较/主旨），提示对应答题框架；高中材料题按高考评分逻辑（分层、要点、史论结合）；4.让用户先自己写，写完后你再点评、补漏，并给规范参考答案与踩分点。要求：多用反问引导；用规范历史术语；只依据材料和所学知识，不编造，不确定处标注需核对。若用户还没发题，请提示他把材料题发来。" },
+    sys:"你是一名初中历史解题教练。用户会发一道材料题（材料+设问）。不要一上来就给完整答案，而是带用户一步步分析：1.先带“挖材料”——逐条提示：材料出处/作者立场？时间与朝代？中心词？有无“但/然而”等转折词或省略号？表格是看趋势还是对比？2.再“架桥回课本”——引导把材料关键词对应到课本考点（如“师夷长技”→洋务运动）；3.判断设问类型（是什么/为什么/影响/评价/比较/主旨），提示对应答题框架；4.让用户先自己写，写完后你再点评、补漏，并给规范参考答案与踩分点。要求：多用反问引导；用教材规范术语；只依据材料和课本知识，不编造，不确定处标注需核对。若用户还没发题，请提示他把材料题发来。" },
   { id:"connect", name:"③ 中外·贯通", desc:"给一个知识点或主题，帮你建立联系、做中外对比，把知识织成网。",
     placeholder:"输入一个知识点或主题，如：明治维新 / 洋务运动 / 边疆治理…",
     hint:"给我一个<b>知识点或主题</b>，我帮你：时空定位→纵向贯通→中外/跨课对比→主动发问→用表格或时间线呈现。",
@@ -176,17 +162,16 @@ var MODES = [
   { id:"essay", name:"④ 小论文陪练", desc:"发一个小论文题，按“观点—论据—结论”教你写并批改，不替你写。",
     placeholder:"把小论文题（可含材料）粘进来…",
     hint:"发一个<b>小论文题</b>。我按“观点—论据—结论”教你写：先帮你提观点、选史实，你写初稿后我逐项批改并给范文。",
-    sys:"你是历史小论文写作教练。用户会给一个小论文题（可能含材料）。请按“观点—论据—结论”教他写，而不是替他写：1.帮他从材料/题目提炼一个明确观点（先让用户自己试提，你再优化）；2.引导选2-3个典型史实（中外/古今结合更好），每个史实“史实+分析(怎样支持观点)”成对出现；3.强调史论结合、逻辑清晰、分段成文，篇幅按学段与题目要求（初中约200字，高中开放性论证题约300字，大学学术短论可更长并注意学术规范）；4.用户写完初稿后，你按四点逐项点评：观点是否明确/史实是否准确/是否史论结合/语言是否规范，给修改建议，最后附一篇范文供对照。要求：史实准确、术语规范。若用户还没发题，请提示他把小论文题发来。" },
+    sys:"你是历史小论文写作教练。用户会给一个小论文题（可能含材料）。请按“观点—论据—结论”教他写，而不是替他写：1.帮他从材料/题目提炼一个明确观点（先让用户自己试提，你再优化）；2.引导选2-3个典型史实（中外/古今结合更好），每个史实“史实+分析(怎样支持观点)”成对出现；3.强调史论结合、逻辑清晰、约200字、分段成文；4.用户写完初稿后，你按四点逐项点评：观点是否明确/史实是否准确/是否史论结合/语言是否规范，给修改建议，最后附一篇范文供对照。要求：史实准确、术语规范。若用户还没发题，请提示他把小论文题发来。" },
   { id:"check", name:"⑤ 辨析·检查", desc:"易混知识点辨析；或把你的答案发来当“检查员”批改（不代写）。",
     placeholder:"发几个易混概念，或粘上你写的答案让我批改…",
     hint:"两种用法：(A) 发几个<b>易混概念</b>（如《天工开物》vs《授时历》），我用表格讲清区别+记忆口诀；(B) 发你写的<b>答案</b>，我只批改挑错、不替你重写。",
-    sys:"你是历史学习助教，有两个用途：(A)易混辨析：用户给几个容易混淆的历史概念或事件，请用 markdown 表格分别列出时间、人物、性质、区别，并给一句“怎么记不混”的口诀；(B)当检查员：用户把自己写的答案发来，你只做批改——对照教材指出史实错误、术语不规范、要点遗漏，并打分说明，但不要直接替他重写，把订正机会留给用户。请根据用户发来的内容判断属于 A 还是 B。要求：依据教材、术语规范、指出不确定处。" }
+    sys:"你是初中历史助教，有两个用途：(A)易混辨析：用户给几个容易混淆的历史概念或事件，请用 markdown 表格分别列出时间、人物、性质、区别，并给一句“怎么记不混”的口诀；(B)当检查员：用户把自己写的答案发来，你只做批改——对照教材指出史实错误、术语不规范、要点遗漏，并打分说明，但不要直接替他重写，把订正机会留给用户。请根据用户发来的内容判断属于 A 还是 B。要求：依据教材、术语规范、指出不确定处。" }
 ];
 
 /* ---------- 状态 ---------- */
 var cfg = loadCfg();
 var curMode = "note";
-var curLevel = cfg.level || "auto";
 var threads = {};
 MODES.forEach(function(m){ threads[m.id]=[]; });
 
@@ -194,15 +179,13 @@ MODES.forEach(function(m){ threads[m.id]=[]; });
 function loadCfg(){
   try{ var c=JSON.parse(localStorage.getItem("hxcfg")||"{}"); }catch(e){ c={}; }
   if(!c.provider){ c.provider="deepseek"; c.base=PROVIDERS.deepseek.base; c.model=PROVIDERS.deepseek.model; c.key=""; }
-  if(!c.level){ c.level="auto"; }
   return c;
 }
 function saveCfg(){ localStorage.setItem("hxcfg", JSON.stringify(cfg)); }
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 function inlineFmt(s){
-  s=s.replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/`([^`]+)`/g,"<code>$1</code>");
-  s=s.replace(/\*\*/g,"").replace(/^\s*\*\s+/,"");  // 去掉跨行残留的孤立 ** 与行首散落 *
-  return s;
+  return s.replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>")
+          .replace(/`([^`]+)`/g,"<code>$1</code>");
 }
 
 /* 把 AI 文本渲染成带五色批注/表格的 HTML */
@@ -231,11 +214,6 @@ function renderContent(text){
       html += '<div class="cal '+cls+'"><span class="lab">'+cm[1]+'</span>'+inlineFmt(esc(cm[2]))+'</div>';
       i++; continue;
     }
-    // 教材栏目/板块(单独成行,如 学思之窗 / 史料阅读 / 学习聚焦)
-    var core = t.replace(/^[#>*\s]+/,"").replace(/[*#\s]+$/,"").replace(/^[【\[]/,"").replace(/[】\]]$/,"").replace(/[:：]\s*$/,"").trim();
-    if(SECTIONS[core]){ html += '<div class="sec">'+esc(core)+'</div>'; i++; continue; }
-    // 图注(▲ / ►)
-    if(/^[▲►]/.test(t)){ html += '<div class="cap2">'+inlineFmt(esc(t.replace(/^[▲►]\s*/,"")))+'</div>'; i++; continue; }
     // 无序列表
     if(/^(\-|\*|•)\s+/.test(t)){
       html += "<ul>";
@@ -330,8 +308,7 @@ function send(){
   target.className="bubble rc"; target.innerHTML='<span class="typing">正在思考…</span>';
   sending=true; setSend(false);
 
-  var lvl=(LEVELS[curLevel]||LEVELS.auto).dir;
-  var messages=[{role:"system",content:m.sys+"\n\n"+lvl}].concat(
+  var messages=[{role:"system",content:m.sys}].concat(
     threads[curMode].filter(function(x){return !x.pending;}).map(function(x){return {role:x.role,content:x.content};})
   );
   streamChat(messages, function(delta){
@@ -394,8 +371,6 @@ function exportPDF(content){
   'table{border-collapse:collapse;width:100%;margin:8px 0;font-size:10.5pt}'+
   'th,td{border:1px solid #99a;padding:5px 8px;text-align:left;vertical-align:top}'+
   'th{background:#1f3a5f;color:#fff}tr:nth-child(even) td{background:#eef2f7}'+
-  '.sec{margin:13px 0 6px;padding:5px 12px;background:#eef1f4;border-left:4px solid #1f3a5f;border-radius:6px;font-weight:700;color:#1f3a5f;font-size:12pt;page-break-after:avoid}'+
-  '.cap2{color:#5a6472;font-size:10.5pt;margin:4px 0}'+
   '.cal{padding:6px 10px;border-radius:6px;margin:6px 0;page-break-inside:avoid}'+
   '.cal .lab{font-weight:700;font-size:9.5pt;margin-right:6px;padding:1px 6px;border-radius:4px;color:#fff}'+
   '.cal.key{background:#fff3b0}.cal.key .lab{background:#b58900}'+
@@ -450,17 +425,6 @@ var input=document.getElementById("input");
 input.addEventListener("input",function(){ this.style.height="auto"; this.style.height=Math.min(this.scrollHeight,180)+"px"; });
 input.addEventListener("keydown",function(e){ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); send(); } });
 document.getElementById("sendBtn").onclick=send;
-
-/* ---------- 学段选择器 ---------- */
-(function(){
-  var sel=document.getElementById("levelSel");
-  Object.keys(LEVELS).forEach(function(k){
-    var o=document.createElement("option"); o.value=k; o.textContent="深度: "+LEVELS[k].label;
-    o.style.color="#222"; sel.appendChild(o);
-  });
-  sel.value=curLevel;
-  sel.addEventListener("change",function(){ curLevel=sel.value; cfg.level=curLevel; saveCfg(); });
-})();
 
 /* ---------- 启动 ---------- */
 renderTabs(); renderChat();
