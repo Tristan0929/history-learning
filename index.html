@@ -51,18 +51,34 @@
   .rc blockquote{margin:12px 0;padding:10px 16px;background:#f0f4fa;border-left:5px solid var(--dark);color:#1f2a3a;border-radius:0 8px 8px 0;font-style:normal;line-height:1.8}
   .rc blockquote p{margin:4px 0}
   .rc hr{border:0;border-top:2px dashed var(--line);margin:20px 0}
-  .cal{padding:7px 11px;border-radius:8px;margin:.4em 0;font-size:14px;line-height:1.7}
-  .cal .lab{font-weight:700;font-size:12px;margin-right:6px;padding:1px 7px;border-radius:5px;color:#fff}
-  .cal.key{background:var(--hl)}
-  .cal.key .lab{background:#b58900}
-  .cal.must{background:#fbeaea;border-left:4px solid var(--accent);color:#7a2020}
-  .cal.must .lab{background:var(--accent)}
-  .cal.note{background:#eef3fb;border-left:4px solid var(--blue);color:#1a3357}
-  .cal.note .lab{background:var(--blue)}
-  .cal.think{background:#f5f0fb;border-left:4px solid #6b3fa0;color:#3d2a5c}
-  .cal.think .lab{background:#6b3fa0}
-  .cal.link{background:#eaf4ec;border-left:4px solid var(--green);color:#1c4a2c}
-  .cal.link .lab{background:var(--green)}
+  
+  /* 新样式：清爽内联小标签版（去掉大卡片背景和边框） */
+  .cal {
+    margin: 4px 0;
+    padding: 2px 0;
+    background: transparent !important;
+    border-left: none !important;
+    border-radius: 0 !important;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #222;
+  }
+  .cal .lab {
+    display: inline-block;
+    padding: 0 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    margin-right: 6px;
+    line-height: 1.8;
+  }
+  .cal.key .lab { background: #b58900; }
+  .cal.must .lab { background: #b0302e; }
+  .cal.note .lab { background: #154c9e; }
+  .cal.think .lab { background: #6b3fa0; }
+  .cal.link .lab { background: #1e6b3a; }
+
   .inputbar{flex-shrink:0;border-top:1px solid var(--line);background:var(--card);padding:10px 16px}
   .inputrow{max-width:860px;margin:0 auto;display:flex;gap:8px;align-items:flex-end}
   textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:14px;line-height:1.6;max-height:180px;min-height:46px}
@@ -204,7 +220,6 @@ function inlineFmt(s){
 }
 
 function renderContent(text){
-  // 预处理：把 <br>、<br/>、<br /> 替换成换行符 \n
   text = text.replace(/<br\s*\/?>/gi, "\n");
   
   var lines = text.split(/\r?\n/);
@@ -440,13 +455,13 @@ function exportPDF(content){
   '.cap2{color:#5a6472;font-size:10.5pt;margin:4px 0}'+
   'blockquote{margin:10px 0;padding:8px 14px;background:#f0f4fa;border-left:5px solid #1f3a5f;border-radius:0 6px 6px 0;color:#1f2a3a}'+
   'hr{border:0;border-top:2px dashed #bbb;margin:16px 0}'+
-  '.cal{padding:6px 10px;border-radius:6px;margin:6px 0;page-break-inside:avoid}'+
-  '.cal .lab{font-weight:700;font-size:9.5pt;margin-right:6px;padding:1px 6px;border-radius:4px;color:#fff}'+
-  '.cal.key{background:#fff3b0}.cal.key .lab{background:#b58900}'+
-  '.cal.must{background:#fbeaea;border-left:4px solid #b0302e;color:#7a2020}.cal.must .lab{background:#b0302e}'+
-  '.cal.note{background:#eef3fb;border-left:4px solid #154c9e;color:#1a3357}.cal.note .lab{background:#154c9e}'+
-  '.cal.think{background:#f5f0fb;border-left:4px solid #6b3fa0;color:#3d2a5c}.cal.think .lab{background:#6b3fa0}'+
-  '.cal.link{background:#eaf4ec;border-left:4px solid #1e6b3a;color:#1c4a2c}.cal.link .lab{background:#1e6b3a}'+
+  '.cal{margin:4px 0;padding:2px 0;background:transparent !important;border-left:none !important;border-radius:0 !important;color:#222;page-break-inside:avoid}'+
+  '.cal .lab{display:inline-block;padding:0 8px;border-radius:10px;font-size:9pt;font-weight:700;color:#fff;margin-right:5px;line-height:1.8}'+
+  '.cal.key .lab{background:#b58900}'+
+  '.cal.must .lab{background:#b0302e}'+
+  '.cal.note .lab{background:#154c9e}'+
+  '.cal.think .lab{background:#6b3fa0}'+
+  '.cal.link .lab{background:#1e6b3a}'+
   '.foot{margin-top:22px;border-top:1px solid #ccc;padding-top:8px;color:#8a94a2;font-size:9pt;text-align:center}';
   var html='<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>历史学习笔记</title>'+
     '<style>'+css+'</style></head><body>'+
