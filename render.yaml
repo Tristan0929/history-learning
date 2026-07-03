@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: history-study-helper
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --timeout 300 --workers 1 --threads 8
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.4"
+      # 可选:如果你想让所有访问者共用你的密钥(会由你付费),取消下一行注释并在 Render 后台填入。
+      # - key: DEEPSEEK_API_KEY
+      #   sync: false
